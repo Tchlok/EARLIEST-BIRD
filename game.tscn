@@ -1,3 +1,99 @@
-[gd_scene format=3 uid="uid://c121otvs8mc36"]
+[gd_scene load_steps=6 format=3 uid="uid://c121otvs8mc36"]
+
+[ext_resource type="Texture2D" uid="uid://cejwlh7r8f12u" path="res://icon.svg" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://cd35pr3103syc" path="res://Scripts/player.gd" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://bot6lcym6nola" path="res://Scenes/Worm.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://dx7jogs4fbngu" path="res://Scenes/Rock.tscn" id="4_fc0e3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feb5d"]
+size = Vector2(20, 144)
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PeckDepth" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.5294118)
+position = Vector2(-1, 9)
+rotation = 0.7853982
+scale = Vector2(0.064224556, 0.064224556)
+texture = ExtResource("1_80nbo")
+
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("peckDepthIndicator", "beakArea")]
+position = Vector2(0, -10)
+script = ExtResource("1_e2o6t")
+peckDepthIndicator = NodePath("../PeckDepth")
+walkingSpeed = 60.0
+chargingSpeed = 30.0
+chargingDuration = 1.0
+chargingSlowdownEase = 1
+walkingAccelerationDuration = 1.0
+walkingAccelerationEase = 1
+flipBoundary = 75.0
+peckDepthBase = 20.0
+peckDepthScale = 45.0
+peckDuration = 0.15
+beakArea = NodePath("BeakHitbox")
+stunDuration = 1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(0, -26.280521)
+scale = Vector2(0.275, 0.402)
+texture = ExtResource("1_80nbo")
+
+[node name="BeakHitbox" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/BeakHitbox"]
+position = Vector2(0, -72)
+scale = Vector2(0.48000032, 1)
+shape = SubResource("RectangleShape2D_feb5d")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/BeakHitbox"]
+scale = Vector2(1.3210917, -0.03605475)
+texture = ExtResource("1_80nbo")
+
+[node name="Worm" parent="." instance=ExtResource("3_feb5d")]
+position = Vector2(-39, 10)
+
+[node name="Worm2" parent="." instance=ExtResource("3_feb5d")]
+position = Vector2(-18, 33)
+
+[node name="Worm3" parent="." instance=ExtResource("3_feb5d")]
+position = Vector2(53, 15)
+
+[node name="Worm4" parent="." instance=ExtResource("3_feb5d")]
+position = Vector2(73, 32)
+
+[node name="Worm5" parent="." instance=ExtResource("3_feb5d")]
+position = Vector2(18, 30)
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+z_index = -10
+offset_left = -108.0
+offset_top = -81.0
+offset_right = 131.0
+offset_bottom = 92.0
+color = Color(1, 0.8124361, 0.79039043, 1)
+
+[node name="Foreground" type="Node2D" parent="."]
+
+[node name="Bg" type="ColorRect" parent="Foreground"]
+z_index = -1
+offset_left = -88.0
+offset_top = -10.0
+offset_right = 91.0
+offset_bottom = 69.0
+color = Color(1, 0.22745098, 0.23529412, 1)
+
+[node name="Rock" parent="." instance=ExtResource("4_fc0e3")]
+position = Vector2(-63, 22)
+rotation = 0.4821797
+
+[node name="Rock2" parent="." instance=ExtResource("4_fc0e3")]
+position = Vector2(20, 5)
+rotation = -0.13441682

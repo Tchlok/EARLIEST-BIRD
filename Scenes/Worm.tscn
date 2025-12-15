@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bot6lcym6nola"]
+
+[ext_resource type="Script" uid="uid://bic02208q8e6" path="res://Scripts/worm.gd" id="1_3cux1"]
+[ext_resource type="Texture2D" uid="uid://cejwlh7r8f12u" path="res://icon.svg" id="1_ksekx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ksekx"]
+size = Vector2(15, 15)
+
+[node name="Worm" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_3cux1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ksekx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.10677256, 0.10677256)
+texture = ExtResource("1_ksekx")
