@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c121otvs8mc36"]
 
 [ext_resource type="Texture2D" uid="uid://cejwlh7r8f12u" path="res://icon.svg" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://cd35pr3103syc" path="res://Scripts/player.gd" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://cd35pr3103syc" path="res://Scripts/Player.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://bot6lcym6nola" path="res://Scenes/Worm.tscn" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://dx7jogs4fbngu" path="res://Scenes/Rock.tscn" id="4_fc0e3"]
 

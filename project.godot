@@ -21,7 +21,7 @@ MathS="*res://Library/Autoload/MathS.gd"
 ParticleSpawner="*res://Library/Autoload/ParticleSpawner.gd"
 TransitionManager="*res://Library/Autoload/TransitionManager.gd"
 SoundSpawner="*res://Library/Autoload/SoundSpawner.gd"
-Score="*res://Scripts/score.gd"
+Score="*res://Scripts/Score.gd"
 
 [display]
 
