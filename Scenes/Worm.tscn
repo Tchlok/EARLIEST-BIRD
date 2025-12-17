@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bot6lcym6nola"]
+[gd_scene load_steps=5 format=3 uid="uid://bot6lcym6nola"]
 
 [ext_resource type="Script" uid="uid://bic02208q8e6" path="res://Scripts/Worm.gd" id="1_3cux1"]
 [ext_resource type="Texture2D" uid="uid://cejwlh7r8f12u" path="res://icon.svg" id="1_ksekx"]
+[ext_resource type="PackedScene" uid="uid://b6bqtwxbq8owd" path="res://Scenes/WormSegments.tscn" id="2_qg2nh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ksekx"]
 size = Vector2(15, 15)
@@ -10,10 +11,14 @@ size = Vector2(15, 15)
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_3cux1")
+segmentsPacked = ExtResource("2_qg2nh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.18116622, 0.18116622)
 shape = SubResource("RectangleShape2D_ksekx")
 
 [node name="Head" type="Sprite2D" parent="."]
-scale = Vector2(0.10677256, 0.10677256)
+visible = false
+z_index = 4096
+scale = Vector2(0.023204716, 0.023204716)
 texture = ExtResource("1_ksekx")

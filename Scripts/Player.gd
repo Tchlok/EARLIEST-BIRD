@@ -17,13 +17,14 @@ var chargingStoredPower : float
 @export var peckDepthBase : float
 @export var peckDepthScale : float
 @export var peckDuration : float
+@export var peckCheckWidth : int
 
 var curPeckDepth : float
 
 var curSpeed
 var direction : int = 1
 
-@export var beakArea : Area2D
+@export var beakPoint : Node2D
 
 @export var stunDuration : float
 
@@ -31,8 +32,6 @@ enum PlayerState {Walking, Charging, Pecking, Stunned}
 var curState : PlayerState
 var stateT : float
 
-func _ready():
-	beakArea.body_entered.connect(onBeakBodyEntered)
 
 func _physics_process(delta: float):
 	curSpeed=0
@@ -43,7 +42,21 @@ func _physics_process(delta: float):
 			curSpeed=lerp(walkingSpeed, chargingSpeed, MathS.Ease(stateT / chargingDuration, chargingSlowdownEase))
 			chargingStoredPower=MathS.Clamp01(stateT / chargingDuration)
 		PlayerState.Pecking:
-			beakArea.position.y=curPeckDepth*MathS.Clamp01(stateT/peckDuration)
+			beakPoint.position.y=curPeckDepth*MathS.Clamp01(stateT/peckDuration)
+			
+			#rock
+			var query = PhysicsRayQueryParameters2D.create(beakPoint.global_position,beakPoint.global_position+Vector2.UP*1000,2)
+			query.collide_with_bodies=true
+			var rayResult = get_world_2d().direct_space_state.intersect_ray(query)
+			if not rayResult.is_empty():
+				var rock : Rock = rayResult["collider"]
+				rock.hit()
+				changeState(PlayerState.Stunned)
+			#worms
+			for w in Score.worms:
+				w.attemptKill(beakPoint.global_position)
+				w.attemptKill(beakPoint.global_position+Vector2.RIGHT*peckCheckWidth)
+				w.attemptKill(beakPoint.global_position+Vector2.LEFT*peckCheckWidth)
 			if stateT>=peckDuration:
 				changeState(PlayerState.Walking)
 		PlayerState.Stunned:
@@ -85,16 +98,7 @@ func changeState(newState:PlayerState):
 	if curState==newState:
 		return
 	if curState==PlayerState.Pecking:
-		beakArea.position.y=0
+		beakPoint.position.y=0
 		chargingStoredPower=0
 	stateT=0
 	curState=newState
-
-func onBeakBodyEntered(body : Node2D):
-	if body is Worm:
-		var worm : Worm=body
-		worm.kill()
-	elif body is Rock:
-		var rock : Rock=body
-		rock.hit()
-		stun()

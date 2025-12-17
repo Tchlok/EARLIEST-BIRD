@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6bqtwxbq8owd"]
+
+[ext_resource type="Script" uid="uid://cmhu032xodn1u" path="res://Scripts/WormSegments.gd" id="1_1twrn"]
+[ext_resource type="Texture2D" uid="uid://c6jv0af0otf0u" path="res://Sprites/TexWormBody.png" id="1_30dsm"]
+
+[sub_resource type="Gradient" id="Gradient_1twrn"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[node name="WormSegments" type="Line2D" node_paths=PackedStringArray("dirtLine")]
+z_index = 10
+texture_filter = 1
+texture_repeat = 2
+scale = Vector2(1.1190476, 1.0909091)
+gradient = SubResource("Gradient_1twrn")
+texture = ExtResource("1_30dsm")
+texture_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_1twrn")
+baseWidth = 6.0
+segmentColors = Array[Color]([Color(0.7137255, 0.2784314, 0.46666667, 1), Color(0.72, 0.079200014, 0.3141601, 1), Color(0.6161861, 0.110741, 0.36848003, 1), Color(0.65882355, 0.2509804, 0.40784314, 1)])
+dirtLine = NodePath("Dirt")
+dirtWidthAdd = 6
+
+[node name="Dirt" type="Line2D" parent="."]
+z_index = -1
+default_color = Color(0.18039216, 0.015686275, 0.07058824, 1)
+begin_cap_mode = 2
+end_cap_mode = 2

@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://dx7jogs4fbngu"]
+
+[ext_resource type="Script" uid="uid://cef3636db3pia" path="res://Scripts/Rock.gd" id="1_5l8bh"]
+[ext_resource type="Texture2D" uid="uid://c6d6vgtn4qo7b" path="res://Sprites/TexRock1.png" id="2_5l8bh"]
+[ext_resource type="Script" uid="uid://3uow3ihp353v" path="res://Library/VisualEffects/Shaker.gd" id="2_i2dvr"]
+[ext_resource type="Shader" uid="uid://nolmhfu3qafp" path="res://rockShader.gdshader" id="2_rnu2j"]
+[ext_resource type="Texture2D" uid="uid://b3o05d3jkt18m" path="res://Sprites/TexNoise.tres" id="4_kys2i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltwur"]
+size = Vector2(20.41614, 12)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2dvr"]
+resource_local_to_scene = true
+shader = ExtResource("2_rnu2j")
+shader_parameter/colA = Vector4(0.385, 0, 0, 0)
+shader_parameter/colB = Vector4(0, 0, 0, 0)
+shader_parameter/noise = ExtResource("4_kys2i")
+shader_parameter/noiseOffset = Vector2(1.02, 0.875)
+
+[node name="Rock" type="RigidBody2D" node_paths=PackedStringArray("shaker", "main")]
+z_index = 2
+collision_layer = 2
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_5l8bh")
+rockColors = Array[Color]([Color(0.2627451, 0.69411767, 0.76862746, 1), Color(0.10880001, 0.5603201, 0.64, 1), Color(0.4136, 0.9312268, 0.94, 1)])
+shaker = NodePath("Shaker")
+main = NodePath("Shaker/Main")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.8052325, -2.0732026)
+rotation = -0.35951158
+shape = SubResource("RectangleShape2D_ltwur")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+rotation = 0.677253
+shape = SubResource("RectangleShape2D_ltwur")
+
+[node name="Shaker" type="Node2D" parent="."]
+script = ExtResource("2_i2dvr")
+duration = 0.4
+easeM = 3
+metadata/_custom_type_script = "uid://3uow3ihp353v"
+
+[node name="Main" type="Sprite2D" parent="Shaker"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_i2dvr")
+scale = Vector2(0.8876865, 0.8876865)
+texture = ExtResource("2_5l8bh")
+
+[node name="Bg" type="Sprite2D" parent="Shaker"]
+modulate = Color(0.18039216, 0.015686275, 0.07058824, 1)
+z_index = -1
+texture_filter = 1
+scale = Vector2(1.255, 1.255)
+texture = ExtResource("2_5l8bh")

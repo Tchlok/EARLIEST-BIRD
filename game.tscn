@@ -1,14 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://c121otvs8mc36"]
+[gd_scene load_steps=14 format=3 uid="uid://c121otvs8mc36"]
 
+[ext_resource type="Script" uid="uid://bunanie3bc4lx" path="res://Scripts/WormSpawner.gd" id="1_7jktm"]
 [ext_resource type="Texture2D" uid="uid://cejwlh7r8f12u" path="res://icon.svg" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://cd35pr3103syc" path="res://Scripts/Player.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://bot6lcym6nola" path="res://Scenes/Worm.tscn" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://dx7jogs4fbngu" path="res://Scenes/Rock.tscn" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://dspv204clf7u6" path="res://Scripts/Foreground.gd" id="5_j5wjh"]
+[ext_resource type="Texture2D" uid="uid://dkmqlqb7mrv35" path="res://Sprites/TexGround.png" id="5_ryrav"]
+[ext_resource type="Texture2D" uid="uid://bo7lxk472ptue" path="res://Sprites/TexFern.png" id="5_vef74"]
+[ext_resource type="Texture2D" uid="uid://biw2vh6o4are2" path="res://Sprites/TexGrass.png" id="6_eow3j"]
+[ext_resource type="Texture2D" uid="uid://cnk0igv37vfe6" path="res://Sprites/TexTrees.png" id="6_hve3p"]
+[ext_resource type="Texture2D" uid="uid://cekoy45tjfx1f" path="res://Sprites/TexBg.png" id="7_mfdv2"]
+[ext_resource type="PackedScene" uid="uid://dx7jogs4fbngu" path="res://Scenes/Rock1.tscn" id="11_mfdv2"]
+[ext_resource type="PackedScene" uid="uid://bc347np3rjumj" path="res://Scenes/Flower.tscn" id="12_iotsf"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_feb5d"]
-size = Vector2(20, 144)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iotsf"]
+size = Vector2(10, 54)
 
 [node name="Node2D" type="Node2D"]
+
+[node name="WormSpawner" type="Node2D" parent="."]
+script = ExtResource("1_7jktm")
+wormPacked = ExtResource("3_feb5d")
+maxWormCount = 1
+spawnSideOffsetX = 30.0
+spawnSideOffsetRangeY = Vector2(0, 40)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -19,7 +34,7 @@ rotation = 0.7853982
 scale = Vector2(0.064224556, 0.064224556)
 texture = ExtResource("1_80nbo")
 
-[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("peckDepthIndicator", "beakArea")]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("peckDepthIndicator", "beakPoint")]
 position = Vector2(0, -10)
 script = ExtResource("1_e2o6t")
 peckDepthIndicator = NodePath("../PeckDepth")
@@ -33,44 +48,32 @@ flipBoundary = 75.0
 peckDepthBase = 20.0
 peckDepthScale = 45.0
 peckDuration = 0.15
-beakArea = NodePath("BeakHitbox")
+peckCheckWidth = 5
+beakPoint = NodePath("BeakPoint")
 stunDuration = 1.5
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.45882353, 0.57254905, 0.5921569, 1)
 position = Vector2(0, -26.280521)
 scale = Vector2(0.275, 0.402)
 texture = ExtResource("1_80nbo")
 
-[node name="BeakHitbox" type="Area2D" parent="Player"]
-collision_layer = 0
-collision_mask = 3
+[node name="BeakPoint" type="Node2D" parent="Player"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/BeakHitbox"]
-position = Vector2(0, -72)
-scale = Vector2(0.48000032, 1)
-shape = SubResource("RectangleShape2D_feb5d")
-
-[node name="Sprite2D" type="Sprite2D" parent="Player/BeakHitbox"]
+[node name="Sprite2D" type="Sprite2D" parent="Player/BeakPoint"]
 scale = Vector2(1.3210917, -0.03605475)
 texture = ExtResource("1_80nbo")
 
-[node name="Worm" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(-39, 10)
+[node name="FlowerPusher" type="Area2D" parent="Player"]
+collision_layer = 8
+collision_mask = 0
 
-[node name="Worm2" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(-18, 33)
-
-[node name="Worm3" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(53, 15)
-
-[node name="Worm4" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(73, 32)
-
-[node name="Worm5" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(18, 30)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/FlowerPusher"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_iotsf")
 
 [node name="Background" type="Node2D" parent="."]
+z_index = -40
 
 [node name="ColorRect" type="ColorRect" parent="Background"]
 z_index = -10
@@ -78,9 +81,93 @@ offset_left = -108.0
 offset_top = -81.0
 offset_right = 131.0
 offset_bottom = 92.0
-color = Color(1, 0.8124361, 0.79039043, 1)
+color = Color(0.2590287, 0.45864952, 0.49504364, 1)
 
-[node name="Foreground" type="Node2D" parent="."]
+[node name="FernMod" type="Node2D" parent="Background"]
+modulate = Color(0.23, 0.12650001, 0.166175, 1)
+
+[node name="FernRight" type="Node2D" parent="Background/FernMod"]
+position = Vector2(88, -8)
+
+[node name="TexFern6" type="Sprite2D" parent="Background/FernMod/FernRight"]
+texture_filter = 1
+position = Vector2(-24.195198, -17.91387)
+rotation = -2.553329
+scale = Vector2(0.39621216, 0.32616305)
+texture = ExtResource("5_vef74")
+
+[node name="TexFern2" type="Sprite2D" parent="Background/FernMod/FernRight"]
+texture_filter = 1
+position = Vector2(-41.195194, -11.913876)
+rotation = -2.7980402
+scale = Vector2(0.3568243, 0.3568243)
+texture = ExtResource("5_vef74")
+
+[node name="TexFern8" type="Sprite2D" parent="Background/FernMod/FernRight"]
+texture_filter = 1
+position = Vector2(-10.195198, -37.913868)
+rotation = -2.227275
+scale = Vector2(0.32016164, 0.14748655)
+texture = ExtResource("5_vef74")
+
+[node name="TexFern3" type="Sprite2D" parent="Background/FernMod/FernRight"]
+texture_filter = 1
+position = Vector2(-9.195198, -26.913868)
+rotation = -2.2894275
+scale = Vector2(0.44361353, -0.4010842)
+texture = ExtResource("5_vef74")
+
+[node name="FernLeft" type="Node2D" parent="Background/FernMod"]
+position = Vector2(-92, -9)
+rotation = 0.050866682
+
+[node name="TexFern" type="Sprite2D" parent="Background/FernMod/FernLeft"]
+texture_filter = 1
+position = Vector2(31, -10.000002)
+rotation = -0.41019607
+scale = Vector2(0.5363915, 0.4767379)
+texture = ExtResource("5_vef74")
+
+[node name="TexFern5" type="Sprite2D" parent="Background/FernMod/FernLeft"]
+texture_filter = 1
+position = Vector2(24.999992, -34.000004)
+rotation = -0.78850543
+scale = Vector2(0.39202136, 0.32902014)
+texture = ExtResource("5_vef74")
+
+[node name="TexFern6" type="Sprite2D" parent="Background/FernMod/FernLeft"]
+texture_filter = 1
+position = Vector2(-2.8799624, -36.901302)
+rotation = -1.8505156
+scale = Vector2(0.39202136, 0.32902014)
+texture = ExtResource("5_vef74")
+flip_v = true
+
+[node name="TexFern7" type="Sprite2D" parent="Background/FernMod/FernLeft"]
+texture_filter = 1
+position = Vector2(10.42221, -42.599415)
+rotation = -1.2077351
+scale = Vector2(0.28880954, 0.23214555)
+texture = ExtResource("5_vef74")
+
+[node name="TexTrees" type="Sprite2D" parent="Background"]
+modulate = Color(0.20400001, 0.3173333, 0.34, 1)
+z_index = -1
+texture_filter = 1
+position = Vector2(0, -49)
+texture = ExtResource("6_hve3p")
+
+[node name="TexTrees2" type="Sprite2D" parent="Background"]
+modulate = Color(0.24313726, 0.36862746, 0.40392157, 1)
+z_index = -2
+texture_filter = 1
+position = Vector2(0, -42)
+texture = ExtResource("7_mfdv2")
+
+[node name="Foreground" type="Node2D" parent="." node_paths=PackedStringArray("grass", "ground")]
+script = ExtResource("5_j5wjh")
+grass = NodePath("TexGrass")
+ground = NodePath("TexGround")
 
 [node name="Bg" type="ColorRect" parent="Foreground"]
 z_index = -1
@@ -90,10 +177,39 @@ offset_right = 91.0
 offset_bottom = 69.0
 color = Color(1, 0.22745098, 0.23529412, 1)
 
-[node name="Rock" parent="." instance=ExtResource("4_fc0e3")]
-position = Vector2(-63, 22)
-rotation = 0.4821797
+[node name="TexGround" type="Sprite2D" parent="Foreground"]
+modulate = Color(0.5591012, 0.079499386, 0.3285979, 1)
+texture_filter = 1
+position = Vector2(0, 30)
+texture = ExtResource("5_ryrav")
 
-[node name="Rock2" parent="." instance=ExtResource("4_fc0e3")]
-position = Vector2(20, 5)
-rotation = -0.13441682
+[node name="TexGrass" type="Sprite2D" parent="Foreground"]
+texture_filter = 1
+position = Vector2(0, -10)
+texture = ExtResource("6_eow3j")
+
+[node name="Rock" parent="." instance=ExtResource("11_mfdv2")]
+position = Vector2(-18, 24)
+
+[node name="Rock2" parent="." instance=ExtResource("11_mfdv2")]
+position = Vector2(41, 27)
+rotation = 1.1888157
+
+[node name="Rock3" parent="." instance=ExtResource("11_mfdv2")]
+position = Vector2(-56.000008, 44.000004)
+rotation = 0.2617994
+
+[node name="Flower" parent="." instance=ExtResource("12_iotsf")]
+position = Vector2(-39, -12)
+
+[node name="Flower2" parent="." instance=ExtResource("12_iotsf")]
+position = Vector2(-62, -12)
+
+[node name="Flower3" parent="." instance=ExtResource("12_iotsf")]
+position = Vector2(-81, -12)
+
+[node name="Flower4" parent="." instance=ExtResource("12_iotsf")]
+position = Vector2(77, -12)
+
+[node name="Flower5" parent="." instance=ExtResource("12_iotsf")]
+position = Vector2(50, -11)
