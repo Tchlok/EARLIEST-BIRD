@@ -24,13 +24,6 @@ func setup(_belongsTo, segCount, scaleMod):
 	
 	dirtLine.width=width+dirtWidthAdd
 
-	#var colorSegCount = ceili(segCount/1.5)
-	#for i in range(colorSegCount-1):
-	#	var chosenCol = colA if i%2==0 else colB
-	#	gradient.add_point(float(i)/float(colorSegCount),chosenCol)
-	#	gradient.add_point((float(i+1)/float(colorSegCount))-0.01,chosenCol)
-	#	print(str(float(i)/float(colorSegCount)))
-	#	print(float(i+1)/float(colorSegCount)-0.01)
 	gradient.add_point(0,colA)
 	gradient.add_point(1,colB)
 	gradient.remove_point(0)

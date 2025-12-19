@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://dtap3n707vgxh"]
+
+[ext_resource type="Script" uid="uid://tvgho0psxr56" path="res://Scripts/BeakSlash.gd" id="1_ms31c"]
+[ext_resource type="Texture2D" uid="uid://dq3tbx3q511so" path="res://Sprites/TexImpactLine2.png" id="2_mri5c"]
+[ext_resource type="Texture2D" uid="uid://c5oek2b0gpi70" path="res://Sprites/TexImpactLine.png" id="2_wqev5"]
+[ext_resource type="Texture2D" uid="uid://ukt2acjrcl7j" path="res://Sprites/TexImpactLine3.png" id="4_y8j3r"]
+
+[sub_resource type="Curve" id="Curve_ms31c"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.13740459, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_wqev5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.96640307, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.875301, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_mri5c"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.422087), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_y8j3r"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5711277), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="BeakSlash" type="Node2D" node_paths=PackedStringArray("slashLine", "impactLine")]
+script = ExtResource("1_ms31c")
+tex = Array[Texture2D]([ExtResource("2_mri5c"), ExtResource("2_wqev5"), ExtResource("4_y8j3r")])
+slashLine = NodePath("LineSlash")
+impactLine = NodePath("LineImpact")
+slashWidth = 8.0
+impactWidth = 14.0
+slashDuration = 0.5
+slashCurve = SubResource("Curve_ms31c")
+impactDuration = 7.0
+impactCurve = SubResource("Curve_wqev5")
+
+[node name="LineSlash" type="Line2D" parent="."]
+z_index = 1
+texture_filter = 1
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, 0)
+width = 0.0
+width_curve = SubResource("Curve_mri5c")
+texture = ExtResource("2_wqev5")
+texture_mode = 1
+
+[node name="LineImpact" type="Line2D" parent="."]
+modulate = Color(0.18039216, 0.015686275, 0.07058824, 1)
+texture_filter = 1
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, 0)
+width = 0.0
+width_curve = SubResource("Curve_y8j3r")
+texture = ExtResource("2_wqev5")
+texture_mode = 1
+end_cap_mode = 2

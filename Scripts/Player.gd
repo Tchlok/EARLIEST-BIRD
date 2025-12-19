@@ -2,6 +2,13 @@ class_name Player
 extends Node2D
 
 @export var peckDepthIndicator : Node2D
+var peckDepthIndicatorTargetA : float
+@export var peckDepthIndicatorIdleA : float = 0.25
+@export var peckDepthIndicatorFadeIn : float = 2
+@export var peckDepthIndicatorFadeOut : float = 5
+
+@export var beakSlashPacked : PackedScene
+
 @export var walkingSpeed : float
 @export var chargingSpeed : float
 @export var chargingDuration : float
@@ -13,11 +20,24 @@ var chargingStoredPower : float
 @export var walkingAccelerationEase : MathS.EasingMethod
 
 @export var flipBoundary : float
+@export var fernLeft : Shaker
+@export var fernRight : Shaker
 
 @export var peckDepthBase : float
 @export var peckDepthScale : float
 @export var peckDuration : float
 @export var peckCheckWidth : int
+
+@export var hopSinMagMod : float
+@export var hopSinMagFlat : float
+@export var hopSinFreqMod : float
+@export var hopStunnedBounceCurve : Curve
+@export var hopStunnedBounceHeight : float
+var hopAnchorYDeltaOld : float
+
+@export var leanMod : float
+@export var squash : SquashAnchor
+@export var squashSecondary : SquashAnchor
 
 var curPeckDepth : float
 
@@ -25,22 +45,54 @@ var curSpeed
 var direction : int = 1
 
 @export var beakPoint : Node2D
-
 @export var stunDuration : float
 
 enum PlayerState {Walking, Charging, Pecking, Stunned}
 var curState : PlayerState
 var stateT : float
 
+@export var walkingBodyTex : Texture2D
+@export var chargingBodyTex : Texture2D
+@export var peckingBodyTex : Texture2D
+@export var stunnedBodyTex : Texture2D
+
+@export var walkingEyeTex : Texture2D
+@export var chargingEyeTex : Texture2D
+@export var peckingEyeTex : Texture2D
+@export var stunnedEyeTex : Texture2D
+
+@export var walkingBeakTex : Texture2D
+@export var chargingBeakTex : Texture2D
+@export var peckingBeakTex : Texture2D
+@export var stunnedBeakTex : Texture2D
+
+@export var bodySp : Sprite2D
+@export var eyeSp : Sprite2D
+@export var beakSp : Sprite2D
+@export var feetSp : Sprite2D
+
+@export var colorNormal : Color
+@export var colorCharged : Color
+var targetAccentColor : Color
+var curAccentColor : Color
+var curAccentColorV3 : Vector3
+@export var accentColorSpeed :float
+
+
+@export var anchor : Node2D
+var _t : float
 
 func _physics_process(delta: float):
 	curSpeed=0
 	match curState:
 		PlayerState.Walking:
+			
 			curSpeed=lerp(0.0, walkingSpeed, MathS.Ease(stateT / chargingDuration, walkingAccelerationEase))
 		PlayerState.Charging:
 			curSpeed=lerp(walkingSpeed, chargingSpeed, MathS.Ease(stateT / chargingDuration, chargingSlowdownEase))
 			chargingStoredPower=MathS.Clamp01(stateT / chargingDuration)
+			targetAccentColor=colorNormal.lerp(colorCharged,chargingStoredPower)
+			peckDepthIndicatorTargetA=lerp(peckDepthIndicatorIdleA, 1.0,chargingStoredPower)
 		PlayerState.Pecking:
 			beakPoint.position.y=curPeckDepth*MathS.Clamp01(stateT/peckDuration)
 			
@@ -67,8 +119,10 @@ func _physics_process(delta: float):
 	
 	if direction == 1 and position.x > flipBoundary:
 		flipDirection()
+		fernRight.Trigger(2)
 	elif direction == -1 and position.x < -flipBoundary:
 		flipDirection()
+		fernLeft.Trigger(2)
 	position.x+=direction*curSpeed*delta
 
 func _process(delta: float):
@@ -84,10 +138,36 @@ func _process(delta: float):
 		PlayerState.Stunned:
 			pass
 	
-	peckDepthIndicator.position=position+Vector2.DOWN*curPeckDepth
+	_t+=delta
+	var hopAnchorYDelta : float = anchor.position.y
+	anchor.position.y=-MathS.Sin01(_t*(hopSinFreqMod))*((hopSinMagMod*curSpeed)+hopSinMagFlat)
+	hopAnchorYDelta-=anchor.position.y
+	if sign(hopAnchorYDelta)!=sign(hopAnchorYDeltaOld) and sign(hopAnchorYDelta)==1:
+		feetSp.flip_h=not feetSp.flip_h
+	peckDepthIndicator.position=Vector2.DOWN*curPeckDepth
+	if curState==PlayerState.Stunned:
+		anchor.position.y=hopStunnedBounceCurve.sample(MathS.Clamp01(stateT/stunDuration))*hopStunnedBounceHeight*-1
+	anchor.rotation_degrees=direction*curSpeed*leanMod
+	
+	hopAnchorYDeltaOld=hopAnchorYDelta
+	
+	if peckDepthIndicator.modulate.a != peckDepthIndicatorTargetA:
+		var mod = peckDepthIndicatorFadeIn if peckDepthIndicatorTargetA>peckDepthIndicator.modulate.a else peckDepthIndicatorFadeOut
+		peckDepthIndicator.modulate.a+=(peckDepthIndicatorTargetA-peckDepthIndicator.modulate.a)*mod*delta
+		if abs(peckDepthIndicator.modulate.a-peckDepthIndicatorTargetA)<0.02:
+			peckDepthIndicator.modulate.a=peckDepthIndicatorTargetA
+	
+	if curAccentColor!=targetAccentColor:
+		var targetColV3 = Vector3(targetAccentColor.r,targetAccentColor.g,targetAccentColor.b)
+		curAccentColorV3+=(targetColV3-curAccentColorV3)*delta*accentColorSpeed
+		curAccentColor=Color(curAccentColorV3.x,curAccentColorV3.y,curAccentColorV3.z,curAccentColor.a)
+		beakSp.modulate=curAccentColor
+		eyeSp.modulate=curAccentColor
+		peckDepthIndicator.get_child(0).modulate=Color(curAccentColor.r,curAccentColor.g,curAccentColor.b,peckDepthIndicator.modulate.a)
 
 func flipDirection():
 	direction*=-1
+	squashSecondary.TriggerSquash(0.1)
 func stun():
 	if curState==PlayerState.Stunned:
 		return
@@ -102,3 +182,34 @@ func changeState(newState:PlayerState):
 		chargingStoredPower=0
 	stateT=0
 	curState=newState
+	match curState:
+		PlayerState.Walking:
+			peckDepthIndicatorTargetA=peckDepthIndicatorIdleA
+			bodySp.texture=walkingBodyTex
+			eyeSp.texture=walkingEyeTex
+			beakSp.texture=walkingBeakTex
+			targetAccentColor=colorNormal
+		PlayerState.Charging:
+			bodySp.texture=chargingBodyTex
+			eyeSp.texture=chargingEyeTex
+			beakSp.texture=chargingBeakTex
+			squash.TriggerStretch(SquashAnchor.Small)
+		PlayerState.Pecking:
+			peckDepthIndicatorTargetA=0
+			bodySp.texture=peckingBodyTex
+			eyeSp.texture=peckingEyeTex
+			beakSp.texture=peckingBeakTex
+			squash.TriggerSquash(SquashAnchor.Medium)
+
+			var slashInstance : BeakSlash = beakSlashPacked.instantiate()
+			slashInstance.setup(self, curAccentColor)
+			get_parent().add_child(slashInstance)
+
+
+		PlayerState.Stunned:
+			targetAccentColor=colorNormal
+			peckDepthIndicatorTargetA=0
+			bodySp.texture=stunnedBodyTex
+			eyeSp.texture=stunnedEyeTex
+			beakSp.texture=stunnedBeakTex
+			squash.TriggerStretch(SquashAnchor.Medium)

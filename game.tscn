@@ -1,20 +1,46 @@
-[gd_scene load_steps=14 format=3 uid="uid://c121otvs8mc36"]
+[gd_scene load_steps=35 format=3 uid="uid://c121otvs8mc36"]
 
 [ext_resource type="Script" uid="uid://bunanie3bc4lx" path="res://Scripts/WormSpawner.gd" id="1_7jktm"]
-[ext_resource type="Texture2D" uid="uid://cejwlh7r8f12u" path="res://icon.svg" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://cd35pr3103syc" path="res://Scripts/Player.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://bot6lcym6nola" path="res://Scenes/Worm.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://dtap3n707vgxh" path="res://Scenes/beakSlash.tscn" id="4_36jdj"]
 [ext_resource type="Script" uid="uid://dspv204clf7u6" path="res://Scripts/Foreground.gd" id="5_j5wjh"]
+[ext_resource type="Texture2D" uid="uid://c6xfvt50y3q70" path="res://Sprites/TexBirdBody.png" id="5_lc2xo"]
 [ext_resource type="Texture2D" uid="uid://dkmqlqb7mrv35" path="res://Sprites/TexGround.png" id="5_ryrav"]
 [ext_resource type="Texture2D" uid="uid://bo7lxk472ptue" path="res://Sprites/TexFern.png" id="5_vef74"]
+[ext_resource type="Texture2D" uid="uid://bom3kmovcxrdu" path="res://Sprites/TexBirdBodyCharge.png" id="6_215e1"]
 [ext_resource type="Texture2D" uid="uid://biw2vh6o4are2" path="res://Sprites/TexGrass.png" id="6_eow3j"]
 [ext_resource type="Texture2D" uid="uid://cnk0igv37vfe6" path="res://Sprites/TexTrees.png" id="6_hve3p"]
+[ext_resource type="Script" uid="uid://d32ri4dl0odrr" path="res://Library/VisualEffects/SquashAnchor.gd" id="7_7sc4i"]
+[ext_resource type="Texture2D" uid="uid://drd6v8airlyug" path="res://Sprites/TexBirdBodyPecking.png" id="7_80cx4"]
 [ext_resource type="Texture2D" uid="uid://cekoy45tjfx1f" path="res://Sprites/TexBg.png" id="7_mfdv2"]
+[ext_resource type="Texture2D" uid="uid://bdnbmcqa535d4" path="res://Sprites/TexBirdBodyStunned.png" id="8_e8heu"]
+[ext_resource type="Texture2D" uid="uid://b4pxid5monhit" path="res://Sprites/TexBirdEyeCharging.png" id="10_boyg6"]
+[ext_resource type="Texture2D" uid="uid://c0dk2s0np875h" path="res://Sprites/TexBirdEyeWalking.png" id="10_rvswv"]
+[ext_resource type="Texture2D" uid="uid://qxxsr71nr3uw" path="res://Sprites/TexBirdEyePecking.png" id="11_e36ub"]
 [ext_resource type="PackedScene" uid="uid://dx7jogs4fbngu" path="res://Scenes/Rock1.tscn" id="11_mfdv2"]
+[ext_resource type="Texture2D" uid="uid://cfex1en6e41rn" path="res://Sprites/TexBirdEyeStunned.png" id="12_hb5m1"]
 [ext_resource type="PackedScene" uid="uid://bc347np3rjumj" path="res://Scenes/Flower.tscn" id="12_iotsf"]
+[ext_resource type="Texture2D" uid="uid://wdxagtbkkv17" path="res://Sprites/TexBirdBeakWalking.png" id="13_vaj68"]
+[ext_resource type="Texture2D" uid="uid://buvs5oubcwh5q" path="res://Sprites/TexBirdBeakCharging.png" id="14_5b14r"]
+[ext_resource type="Texture2D" uid="uid://c836eifvj35bk" path="res://Sprites/TexBirdBeakStunned.png" id="14_i2p71"]
+[ext_resource type="Texture2D" uid="uid://cqm575c6r0kra" path="res://Sprites/TexFeetWalking.png" id="14_x5p1p"]
+[ext_resource type="Texture2D" uid="uid://dh7pyc7c15te" path="res://Sprites/TexBirdBeakPecking.png" id="14_xa8c5"]
+[ext_resource type="Texture2D" uid="uid://bnodpxakqdoth" path="res://Sprites/TexTailFeather.png" id="15_qhcbd"]
+[ext_resource type="Script" uid="uid://3uow3ihp353v" path="res://Library/VisualEffects/Shaker.gd" id="16_f1jbl"]
+[ext_resource type="Shader" uid="uid://vul7ydruenv3" path="res://xFade.gdshader" id="19_bnpwn"]
+[ext_resource type="Texture2D" uid="uid://bnt7y6nh68edo" path="res://Sprites/TexBeakIndicator.png" id="20_bnpwn"]
+[ext_resource type="Texture2D" uid="uid://bfs8t2aww1fhu" path="res://Sprites/TexBeakIndicatorOutlinet.png" id="22_xfvwf"]
+
+[sub_resource type="Curve" id="Curve_e8heu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.25889325, 0), 0.0, 0.0, 0, 0, Vector2(0.40711457, 0.4160037), 0.0, 0.0, 0, 0, Vector2(0.5652174, 0), 0.0, 0.0, 0, 0, Vector2(0.65019757, 0.2304632), 0.0, 0.0, 0, 0, Vector2(0.7549407, 0), 0.0, 0.0, 0, 0, Vector2(0.8379446, 0.09054744), 0.0, 0.0, 0, 0, Vector2(0.91304344, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 10
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iotsf"]
 size = Vector2(10, 54)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_36jdj"]
+shader = ExtResource("19_bnpwn")
 
 [node name="Node2D" type="Node2D"]
 
@@ -27,17 +53,14 @@ spawnSideOffsetRangeY = Vector2(0, 40)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="PeckDepth" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.5294118)
-position = Vector2(-1, 9)
-rotation = 0.7853982
-scale = Vector2(0.064224556, 0.064224556)
-texture = ExtResource("1_80nbo")
-
-[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("peckDepthIndicator", "beakPoint")]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("peckDepthIndicator", "fernLeft", "fernRight", "squash", "squashSecondary", "beakPoint", "bodySp", "eyeSp", "beakSp", "feetSp", "anchor")]
 position = Vector2(0, -10)
 script = ExtResource("1_e2o6t")
-peckDepthIndicator = NodePath("../PeckDepth")
+peckDepthIndicator = NodePath("BeakDepthIndicator")
+peckDepthIndicatorIdleA = 0.5
+peckDepthIndicatorFadeIn = 10.0
+peckDepthIndicatorFadeOut = 20.0
+beakSlashPacked = ExtResource("4_36jdj")
 walkingSpeed = 60.0
 chargingSpeed = 30.0
 chargingDuration = 1.0
@@ -45,24 +68,90 @@ chargingSlowdownEase = 1
 walkingAccelerationDuration = 1.0
 walkingAccelerationEase = 1
 flipBoundary = 75.0
+fernLeft = NodePath("../Background/FernMod/FernLeft")
+fernRight = NodePath("../Background/FernMod/FernRight")
 peckDepthBase = 20.0
 peckDepthScale = 45.0
 peckDuration = 0.15
 peckCheckWidth = 5
+hopSinMagMod = 0.05
+hopSinMagFlat = 4.0
+hopSinFreqMod = 10.0
+hopStunnedBounceCurve = SubResource("Curve_e8heu")
+hopStunnedBounceHeight = 10.0
+leanMod = 0.1
+squash = NodePath("SquashAnchor")
+squashSecondary = NodePath("SquashAnchor/SquashAnchorSecondary")
 beakPoint = NodePath("BeakPoint")
-stunDuration = 1.5
+stunDuration = 1.2
+walkingBodyTex = ExtResource("5_lc2xo")
+chargingBodyTex = ExtResource("6_215e1")
+peckingBodyTex = ExtResource("7_80cx4")
+stunnedBodyTex = ExtResource("8_e8heu")
+walkingEyeTex = ExtResource("10_rvswv")
+chargingEyeTex = ExtResource("10_boyg6")
+peckingEyeTex = ExtResource("11_e36ub")
+stunnedEyeTex = ExtResource("12_hb5m1")
+walkingBeakTex = ExtResource("13_vaj68")
+chargingBeakTex = ExtResource("14_5b14r")
+peckingBeakTex = ExtResource("14_xa8c5")
+stunnedBeakTex = ExtResource("14_i2p71")
+bodySp = NodePath("SquashAnchor/SquashAnchorSecondary/NormalState/spBody")
+eyeSp = NodePath("SquashAnchor/SquashAnchorSecondary/NormalState/spEye")
+beakSp = NodePath("SquashAnchor/SquashAnchorSecondary/NormalState/spBeak")
+feetSp = NodePath("SquashAnchor/SquashAnchorSecondary/NormalState/spFeet")
+colorNormal = Color(0.5803922, 0.83137256, 0.8745098, 1)
+colorCharged = Color(0, 1, 1, 1)
+accentColorSpeed = 10.0
+anchor = NodePath("SquashAnchor/SquashAnchorSecondary/NormalState")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-modulate = Color(0.45882353, 0.57254905, 0.5921569, 1)
-position = Vector2(0, -26.280521)
-scale = Vector2(0.275, 0.402)
-texture = ExtResource("1_80nbo")
+[node name="SquashAnchor" type="Node2D" parent="Player"]
+script = ExtResource("7_7sc4i")
+duration = 0.25
+metadata/_custom_type_script = "uid://d32ri4dl0odrr"
+
+[node name="SquashAnchorSecondary" type="Node2D" parent="Player/SquashAnchor"]
+script = ExtResource("7_7sc4i")
+duration = 0.15
+metadata/_custom_type_script = "uid://d32ri4dl0odrr"
+
+[node name="NormalState" type="Node2D" parent="Player/SquashAnchor/SquashAnchorSecondary"]
+
+[node name="spBody" type="Sprite2D" parent="Player/SquashAnchor/SquashAnchorSecondary/NormalState"]
+modulate = Color(0.26666668, 0.03137255, 0.13333334, 1)
+z_index = -1
+texture_filter = 1
+position = Vector2(0, -34)
+texture = ExtResource("5_lc2xo")
+
+[node name="spEye" type="Sprite2D" parent="Player/SquashAnchor/SquashAnchorSecondary/NormalState"]
+modulate = Color(0.5803922, 0.83137256, 0.8745098, 1)
+texture_filter = 1
+position = Vector2(0, -34)
+texture = ExtResource("10_rvswv")
+
+[node name="spBeak" type="Sprite2D" parent="Player/SquashAnchor/SquashAnchorSecondary/NormalState"]
+modulate = Color(0.5803922, 0.83137256, 0.8745098, 1)
+texture_filter = 1
+position = Vector2(0, -34)
+texture = ExtResource("13_vaj68")
+
+[node name="spFeet" type="Sprite2D" parent="Player/SquashAnchor/SquashAnchorSecondary/NormalState"]
+modulate = Color(0.57, 0.2109, 0.36651, 1)
+z_index = -2
+texture_filter = 1
+position = Vector2(0, -23)
+texture = ExtResource("14_x5p1p")
+
+[node name="spTailFeather" type="Sprite2D" parent="Player/SquashAnchor/SquashAnchorSecondary/NormalState"]
+self_modulate = Color(0.26666668, 0.03137255, 0.13333334, 1)
+z_index = -3
+texture_filter = 1
+position = Vector2(0, 12)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("15_qhcbd")
 
 [node name="BeakPoint" type="Node2D" parent="Player"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Player/BeakPoint"]
-scale = Vector2(1.3210917, -0.03605475)
-texture = ExtResource("1_80nbo")
 
 [node name="FlowerPusher" type="Area2D" parent="Player"]
 collision_layer = 8
@@ -71,6 +160,23 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/FlowerPusher"]
 position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_iotsf")
+
+[node name="BeakDepthIndicator" type="Node2D" parent="Player"]
+
+[node name="BeakDepthSp" type="Sprite2D" parent="Player/BeakDepthIndicator"]
+z_index = 345
+texture_filter = 1
+material = SubResource("ShaderMaterial_36jdj")
+position = Vector2(0, -6)
+texture = ExtResource("20_bnpwn")
+
+[node name="BeakDepthSp2" type="Sprite2D" parent="Player/BeakDepthIndicator"]
+modulate = Color(0.72156864, 0.078431375, 0.3137255, 1)
+z_index = 345
+texture_filter = 1
+material = SubResource("ShaderMaterial_36jdj")
+position = Vector2(0, -6)
+texture = ExtResource("22_xfvwf")
 
 [node name="Background" type="Node2D" parent="."]
 z_index = -40
@@ -87,67 +193,78 @@ color = Color(0.2590287, 0.45864952, 0.49504364, 1)
 modulate = Color(0.23, 0.12650001, 0.166175, 1)
 
 [node name="FernRight" type="Node2D" parent="Background/FernMod"]
-position = Vector2(88, -8)
+script = ExtResource("16_f1jbl")
+duration = 0.2
+easeM = 4
+metadata/_custom_type_script = "uid://3uow3ihp353v"
 
-[node name="TexFern6" type="Sprite2D" parent="Background/FernMod/FernRight"]
+[node name="Node2D" type="Node2D" parent="Background/FernMod/FernRight"]
+
+[node name="TexFern6" type="Sprite2D" parent="Background/FernMod/FernRight/Node2D"]
 texture_filter = 1
-position = Vector2(-24.195198, -17.91387)
+position = Vector2(63.804802, -25.91387)
 rotation = -2.553329
 scale = Vector2(0.39621216, 0.32616305)
 texture = ExtResource("5_vef74")
 
-[node name="TexFern2" type="Sprite2D" parent="Background/FernMod/FernRight"]
+[node name="TexFern2" type="Sprite2D" parent="Background/FernMod/FernRight/Node2D"]
 texture_filter = 1
-position = Vector2(-41.195194, -11.913876)
+position = Vector2(46.804806, -19.913876)
 rotation = -2.7980402
 scale = Vector2(0.3568243, 0.3568243)
 texture = ExtResource("5_vef74")
 
-[node name="TexFern8" type="Sprite2D" parent="Background/FernMod/FernRight"]
+[node name="TexFern8" type="Sprite2D" parent="Background/FernMod/FernRight/Node2D"]
 texture_filter = 1
-position = Vector2(-10.195198, -37.913868)
+position = Vector2(77.8048, -45.913868)
 rotation = -2.227275
 scale = Vector2(0.32016164, 0.14748655)
 texture = ExtResource("5_vef74")
 
-[node name="TexFern3" type="Sprite2D" parent="Background/FernMod/FernRight"]
+[node name="TexFern3" type="Sprite2D" parent="Background/FernMod/FernRight/Node2D"]
 texture_filter = 1
-position = Vector2(-9.195198, -26.913868)
+position = Vector2(78.8048, -34.913868)
 rotation = -2.2894275
 scale = Vector2(0.44361353, -0.4010842)
 texture = ExtResource("5_vef74")
 
 [node name="FernLeft" type="Node2D" parent="Background/FernMod"]
-position = Vector2(-92, -9)
 rotation = 0.050866682
+script = ExtResource("16_f1jbl")
+duration = 0.2
+easeM = 4
+metadata/_custom_type_script = "uid://3uow3ihp353v"
 
-[node name="TexFern" type="Sprite2D" parent="Background/FernMod/FernLeft"]
+[node name="Node2D" type="Node2D" parent="Background/FernMod/FernLeft"]
+position = Vector2(-92, -9)
+
+[node name="TexFern" type="Sprite2D" parent="Background/FernMod/FernLeft/Node2D"]
 texture_filter = 1
-position = Vector2(31, -10.000002)
-rotation = -0.41019607
-scale = Vector2(0.5363915, 0.4767379)
+position = Vector2(31.000004, -10.000002)
+rotation = -0.41019604
+scale = Vector2(0.53639156, 0.4767379)
 texture = ExtResource("5_vef74")
 
-[node name="TexFern5" type="Sprite2D" parent="Background/FernMod/FernLeft"]
+[node name="TexFern5" type="Sprite2D" parent="Background/FernMod/FernLeft/Node2D"]
 texture_filter = 1
 position = Vector2(24.999992, -34.000004)
-rotation = -0.78850543
-scale = Vector2(0.39202136, 0.32902014)
+rotation = -0.7885054
+scale = Vector2(0.39202136, 0.32902017)
 texture = ExtResource("5_vef74")
 
-[node name="TexFern6" type="Sprite2D" parent="Background/FernMod/FernLeft"]
+[node name="TexFern6" type="Sprite2D" parent="Background/FernMod/FernLeft/Node2D"]
 texture_filter = 1
-position = Vector2(-2.8799624, -36.901302)
+position = Vector2(-2.8799667, -36.901302)
 rotation = -1.8505156
-scale = Vector2(0.39202136, 0.32902014)
+scale = Vector2(0.3920214, 0.32902014)
 texture = ExtResource("5_vef74")
 flip_v = true
 
-[node name="TexFern7" type="Sprite2D" parent="Background/FernMod/FernLeft"]
+[node name="TexFern7" type="Sprite2D" parent="Background/FernMod/FernLeft/Node2D"]
 texture_filter = 1
-position = Vector2(10.42221, -42.599415)
+position = Vector2(10.422211, -42.599415)
 rotation = -1.2077351
-scale = Vector2(0.28880954, 0.23214555)
+scale = Vector2(0.28880954, 0.23214553)
 texture = ExtResource("5_vef74")
 
 [node name="TexTrees" type="Sprite2D" parent="Background"]
@@ -184,6 +301,7 @@ position = Vector2(0, 30)
 texture = ExtResource("5_ryrav")
 
 [node name="TexGrass" type="Sprite2D" parent="Foreground"]
+z_index = 5
 texture_filter = 1
 position = Vector2(0, -10)
 texture = ExtResource("6_eow3j")
