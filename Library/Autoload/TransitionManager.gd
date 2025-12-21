@@ -1,7 +1,7 @@
-extends Node
+extends Node2D
 
-const TransitionDurationIn = 0
-const TransitionDurationOut = 0
+const TransitionDurationIn = 0.3
+const TransitionDurationOut = 0.3
 
 signal EV_TransitionFinished
 signal EV_TransitionCovered
@@ -12,6 +12,8 @@ var t : float
 var _transitioning
 
 func _ready():
+	var effect : PackedScene = load("res://Scenes/TransitionEffect.tscn")
+	add_child(effect.instantiate())
 	process_mode=Node.PROCESS_MODE_ALWAYS
 
 func IsTransitioning():
@@ -19,10 +21,10 @@ func IsTransitioning():
 
 #path or packed
 var _curScene
-func TransitionScene(scene, canOverride : bool = false):
+func TransitionScene(sceneStr : String, canOverride : bool = false):
 	if IsTransitioning() and not canOverride:
 		return
-	_curScene = scene
+	_curScene = load(sceneStr)
 	EV_TransitionCovered.connect(_TransitionSceneCovered)
 	TransitionStart(canOverride)
 
@@ -43,7 +45,8 @@ func _process(delta):
 	var duration =  TransitionDurationIn if modeIn else TransitionDurationOut
 	t+=delta
 	var prog = MathS.Clamp01(t/duration)
-	EV_VisualsUpdate.emit(prog, modeIn)
+	if IsTransitioning():
+		EV_VisualsUpdate.emit(prog, modeIn)
 	if prog == 1:
 		if modeIn:
 			EV_TransitionCovered.emit()

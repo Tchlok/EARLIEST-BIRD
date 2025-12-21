@@ -5,6 +5,9 @@ extends Node2D
 
 @export var gameDuration : float
 @export var timeToStart : float
+
+@export var gameOverPacked : PackedScene
+
 var step : int
 var t : float
 
@@ -16,6 +19,7 @@ var targetOpacity : float
 
 func _enter_tree():
 	uiHolder.modulate.a=0
+	Score.reset()
 	step=0
 
 func _physics_process(delta: float):
@@ -38,3 +42,4 @@ func _physics_process(delta: float):
 				spawner.stop()
 				step+=1
 				targetOpacity=0
+				TransitionManager.TransitionScene("res://Scenes/gameOver.tscn")

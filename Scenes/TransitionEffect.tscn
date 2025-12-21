@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://wr5txwib6304"]
+
+[ext_resource type="Script" uid="uid://dfxc6fxuf6oos" path="res://Scripts/TransitionEffect.gd" id="1_wte46"]
+
+[node name="TransitionEffect" type="Node2D"]
+modulate = Color(0.27, 0.0324, 0.13536002, 0)
+script = ExtResource("1_wte46")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 4096
+offset_left = -349.0
+offset_top = -269.0
+offset_right = 422.0
+offset_bottom = 316.0

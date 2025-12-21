@@ -1,6 +1,11 @@
 class_name Player
 extends Node2D
 
+
+var yPos : float
+@export var fallDuration : float
+@export var fallFrom : float
+
 @export var peckDepthIndicator : Node2D
 var peckDepthIndicatorTargetA : float
 @export var peckDepthIndicatorIdleA : float = 0.25
@@ -47,7 +52,7 @@ var direction : int = 1
 @export var beakPoint : Node2D
 @export var stunDuration : float
 
-enum PlayerState {Walking, Charging, Pecking, Stunned}
+enum PlayerState {Walking, Charging, Pecking, Stunned, Falling}
 var curState : PlayerState
 var stateT : float
 
@@ -85,7 +90,10 @@ var _t : float
 @export var cam : Cam
 
 func _ready():
+	Score.player=self
+	yPos=position.y
 	curState=PlayerState.Stunned
+	changeState(PlayerState.Falling)
 	active=false
 	addRampage(0)
 
@@ -94,6 +102,9 @@ func _physics_process(delta: float):
 	var rMod : float = lerp(1.0,rampageSpeedMod,rampage)
 
 	match curState:
+		PlayerState.Falling:
+			position.y=lerp(fallFrom,yPos,MathS.Clamp01(stateT/fallDuration))
+
 		PlayerState.Walking:
 			
 			curSpeed=lerp(0.0, walkingSpeed, MathS.Ease(stateT / chargingDuration, walkingAccelerationEase))*rMod
@@ -112,6 +123,7 @@ func _physics_process(delta: float):
 			if not rayResult.is_empty():
 				var rock : Rock = rayResult["collider"]
 				rock.hit()
+				SoundSpawner.SpawnFromName("Rock",0.1)
 				changeState(PlayerState.Stunned)
 			#worms
 			for w in Score.worms:
@@ -196,6 +208,10 @@ func changeState(newState:PlayerState):
 	stateT=0
 	curState=newState
 	match curState:
+		PlayerState.Falling:
+			bodySp.texture=chargingBodyTex
+			eyeSp.texture=chargingEyeTex
+			beakSp.texture=chargingBeakTex
 		PlayerState.Walking:
 			peckDepthIndicatorTargetA=peckDepthIndicatorIdleA
 			bodySp.texture=walkingBodyTex
@@ -203,11 +219,14 @@ func changeState(newState:PlayerState):
 			beakSp.texture=walkingBeakTex
 			targetAccentColor=colorNormal
 		PlayerState.Charging:
+			SoundSpawner.SpawnFromName("Woosh",0.15)
 			bodySp.texture=chargingBodyTex
 			eyeSp.texture=chargingEyeTex
 			beakSp.texture=chargingBeakTex
 			squash.TriggerStretch(SquashAnchor.Small)
 		PlayerState.Pecking:
+			SoundSpawner.SpawnFromName("Release",0.15)
+
 			peckDepthIndicatorTargetA=0
 			bodySp.texture=peckingBodyTex
 			eyeSp.texture=peckingEyeTex
@@ -233,6 +252,9 @@ var active : bool
 func start():
 	active=true
 	changeState(PlayerState.Walking)
+	squash.TriggerSquash(SquashAnchor.Large)
+	SoundSpawner.SpawnFromName("Release",0.1)
+	
 	if Input.is_action_pressed("action"):
 		changeState(PlayerState.Charging)
 func stop():

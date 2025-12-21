@@ -1,6 +1,126 @@
-[gd_scene load_steps=2 format=3 uid="uid://jcxjscj2g8mk"]
+[gd_scene load_steps=16 format=3 uid="uid://jcxjscj2g8mk"]
 
 [ext_resource type="Script" uid="uid://dc1h28bh7wco7" path="res://Scripts/StartScreen.gd" id="1_c1in8"]
+[ext_resource type="Texture2D" uid="uid://chpc4smhfsea0" path="res://Sprites/Tex_StartBackground.png" id="2_nwqh5"]
+[ext_resource type="Script" uid="uid://3uow3ihp353v" path="res://Library/VisualEffects/Shaker.gd" id="3_ti5xi"]
+[ext_resource type="Texture2D" uid="uid://sb3hloxlji1t" path="res://Sprites/Tex_StartBird1.png" id="3_wm7qr"]
+[ext_resource type="Texture2D" uid="uid://dhcxx718aokox" path="res://Sprites/Tex_StartTree.png" id="4_r2tfp"]
+[ext_resource type="Texture2D" uid="uid://8cel2558vgpc" path="res://Sprites/Tex_StartBird2.png" id="4_vt16u"]
+[ext_resource type="Script" uid="uid://d32ri4dl0odrr" path="res://Library/VisualEffects/SquashAnchor.gd" id="5_a8hbt"]
+[ext_resource type="Texture2D" uid="uid://b8icj78xvpbrp" path="res://Sprites/Tex_StartBird3.png" id="5_jec86"]
+[ext_resource type="Texture2D" uid="uid://b0fj06pwee1ck" path="res://Sprites/Tex_StartBird0.png" id="5_tft44"]
+[ext_resource type="Texture2D" uid="uid://0ocm7m5pb8xv" path="res://Sprites/Tex_StartBird4.png" id="6_13hj3"]
+[ext_resource type="Texture2D" uid="uid://bv61jya2xqti3" path="res://Sprites/Tex_SleepPar.png" id="7_5pd68"]
+[ext_resource type="Texture2D" uid="uid://iuux5kpf1j1x" path="res://Sprites/Tex_StartBird5.png" id="7_prpor"]
+[ext_resource type="Texture2D" uid="uid://rwht0y4g8t5t" path="res://Sprites/Tex_StartScreenText.png" id="9_vt16u"]
+[ext_resource type="Texture2D" uid="uid://cp5get3u812ik" path="res://Sprites/Tex_StartScreenTitle.png" id="10_vt16u"]
 
-[node name="StartScreen" type="Node2D"]
+[sub_resource type="Curve" id="Curve_g2xlm"]
+_limits = [0.0, 1.0, 0.0, 1.2]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, -0.05), 0.0, 0.0, 0, 0, Vector2(1.2, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="StartScreen" type="Node2D" node_paths=PackedStringArray("shaker", "sleepParticle", "squash", "sp")]
 script = ExtResource("1_c1in8")
+alertPerTap = 0.25
+shaker = NodePath("Shaker")
+timeToAlertReset = 1.5
+textures = Array[Texture]([ExtResource("5_tft44"), ExtResource("3_wm7qr"), ExtResource("4_vt16u"), ExtResource("5_jec86"), ExtResource("6_13hj3")])
+textureFlying = ExtResource("7_prpor")
+hopCurve = SubResource("Curve_g2xlm")
+hopEndPos = 500.0
+sleepParticle = NodePath("CPUParticles2D")
+squash = NodePath("Shaker/SquashAnchor")
+sp = NodePath("Shaker/SquashAnchor/Bird")
+wakeUpDuration = 2.0
+wakeUpHopStart = 0.75
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="TexStartBackground" type="Sprite2D" parent="."]
+texture = ExtResource("2_nwqh5")
+
+[node name="TexStartScreenText" type="Sprite2D" parent="TexStartBackground"]
+modulate = Color(0.26666668, 0.03137255, 0.13333334, 1)
+z_index = 12
+texture_filter = 1
+texture = ExtResource("9_vt16u")
+
+[node name="TexStartScreenText2" type="Sprite2D" parent="TexStartBackground"]
+modulate = Color(0.5742, 0.82563007, 0.87, 0.29411766)
+z_index = 11
+texture_filter = 1
+position = Vector2(0, 1)
+texture = ExtResource("9_vt16u")
+
+[node name="TexStartScreenText3" type="Sprite2D" parent="TexStartBackground"]
+modulate = Color(0.5742, 0.82563007, 0.87, 0.29411766)
+z_index = 11
+texture_filter = 1
+position = Vector2(1, 1)
+texture = ExtResource("9_vt16u")
+
+[node name="TexStartScreenTitle" type="Sprite2D" parent="TexStartBackground"]
+self_modulate = Color(0.26666668, 0.03137255, 0.13333334, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(-2, 0)
+texture = ExtResource("10_vt16u")
+
+[node name="TexStartScreenTitle2" type="Sprite2D" parent="TexStartBackground/TexStartScreenTitle"]
+modulate = Color(0.5742, 0.82563007, 0.87, 0.39607844)
+z_index = -1
+texture_filter = 1
+position = Vector2(0, 2)
+texture = ExtResource("10_vt16u")
+
+[node name="TexStartScreenTitle3" type="Sprite2D" parent="TexStartBackground/TexStartScreenTitle"]
+modulate = Color(0.5742, 0.82563007, 0.87, 0.39607844)
+z_index = -1
+texture_filter = 1
+position = Vector2(1, 2)
+texture = ExtResource("10_vt16u")
+
+[node name="Shaker" type="Node2D" parent="."]
+script = ExtResource("3_ti5xi")
+duration = 0.2
+easeM = 1
+metadata/_custom_type_script = "uid://3uow3ihp353v"
+
+[node name="TexStartTree" type="Sprite2D" parent="Shaker"]
+modulate = Color(0.84032553, 0.84032553, 0.8403255, 1)
+z_index = 10
+texture_filter = 1
+position = Vector2(-40, 0)
+texture = ExtResource("4_r2tfp")
+
+[node name="SquashAnchor" type="Node2D" parent="Shaker"]
+position = Vector2(-39, 7)
+script = ExtResource("5_a8hbt")
+duration = 0.2
+metadata/_custom_type_script = "uid://d32ri4dl0odrr"
+
+[node name="Bird" type="Sprite2D" parent="Shaker/SquashAnchor"]
+z_index = 15
+texture_filter = 1
+position = Vector2(-1, -7)
+texture = ExtResource("5_tft44")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+modulate = Color(0.5803922, 0.83137256, 0.8745098, 1)
+texture_filter = 1
+position = Vector2(-36, -26)
+rotation = -1.3707894
+amount = 7
+texture = ExtResource("7_5pd68")
+lifetime = 4.0
+emission_shape = 1
+emission_sphere_radius = 3.0
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 30.0
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 0.46
+scale_amount_max = 0.6

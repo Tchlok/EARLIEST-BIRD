@@ -57,7 +57,7 @@ func _physics_process(delta: float):
 		deadT+=delta
 		segmentT+=delta
 		var p = MathS.Clamp01(deadT/timeToFree)
-		dirtLine.width=(width+dirtWidthAdd)*dirtWidthCurve.sample(p)
+		dirtLine.width=(width+dirtWidthAdd-4)*dirtWidthCurve.sample(p)
 		if segmentT>=timeBetweenRipples:
 			segmentT-=timeBetweenRipples
 			if 0 <= segmentRippleLeft:
@@ -101,7 +101,7 @@ var segmentT : float
 
 func wormDead():
 	dead=true
-	width=0
+	self_modulate.a=0
 	var centralIdx = points.size()/2
 	segmentRippleLeft=centralIdx-1
 	segmentRippleRight=centralIdx+1

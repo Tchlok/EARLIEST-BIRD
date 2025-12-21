@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjxlhdxhla0so"]
+
+[ext_resource type="Script" uid="uid://cs6po4t54a4od" path="res://Scripts/GameOver.gd" id="1_houp4"]
+[ext_resource type="Texture2D" uid="uid://c1dqwkt6aq5ro" path="res://Sprites/Tex_GameOverBackground.png" id="2_fevt1"]
+[ext_resource type="PackedScene" uid="uid://b3unf8p3vghto" path="res://Scenes/GameOverWorm.tscn" id="2_jnb8n"]
+[ext_resource type="Texture2D" uid="uid://b58ghqrsl28y" path="res://Sprites/Tex_GameOverWorm0.png" id="3_x4yd2"]
+[ext_resource type="Texture2D" uid="uid://hhtd1ssq8flf" path="res://Sprites/Tex_GameOverWorm1.png" id="4_6folj"]
+[ext_resource type="Script" uid="uid://d32ri4dl0odrr" path="res://Library/VisualEffects/SquashAnchor.gd" id="4_bwgl3"]
+[ext_resource type="Theme" uid="uid://canm7mytbs1mr" path="res://main.tres" id="5_x6tyv"]
+
+[node name="GameOver" type="Node2D" node_paths=PackedStringArray("label", "squash")]
+script = ExtResource("1_houp4")
+label = NodePath("SquashAnchor/RichTextLabel")
+squash = NodePath("SquashAnchor")
+countingDuration = 1.0
+wormPacked = ExtResource("2_jnb8n")
+wormColors = Array[Color]([Color(0.7137255, 0.2784314, 0.46666667, 1), Color(0.72156864, 0.078431375, 0.3137255, 1), Color(0.6156863, 0.10980392, 0.36862746, 1), Color(0.65882355, 0.2509804, 0.40784314, 1)])
+wormTextures = Array[Texture]([ExtResource("3_x4yd2"), ExtResource("4_6folj")])
+timeToStart = 0.5
+wormSpawnRadius = 44.0
+holdDuration = 1.4
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="TexGameOverBackground" type="Sprite2D" parent="."]
+z_index = -10
+texture_filter = 1
+texture = ExtResource("2_fevt1")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+z_index = 4000
+offset_left = -86.0
+offset_top = 50.0
+offset_right = 86.0
+offset_bottom = 89.0
+theme = ExtResource("5_x6tyv")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[center]TAP TO RETRY.  HOLD FOR MENU."
+
+[node name="SquashAnchor" type="Node2D" parent="."]
+position = Vector2(0, -47)
+script = ExtResource("4_bwgl3")
+duration = 0.3
+metadata/_custom_type_script = "uid://d32ri4dl0odrr"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SquashAnchor"]
+z_index = 4000
+offset_left = -86.0
+offset_top = -19.0
+offset_right = 86.0
+theme = ExtResource("5_x6tyv")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]YOU CAUGHT 100 WORMS!"
