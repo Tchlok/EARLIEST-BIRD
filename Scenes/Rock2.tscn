@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://cmh0we44f2iyr"]
+
+[ext_resource type="Script" uid="uid://cef3636db3pia" path="res://Scripts/Rock.gd" id="1_tm8xu"]
+[ext_resource type="Script" uid="uid://3uow3ihp353v" path="res://Library/VisualEffects/Shaker.gd" id="2_be8jq"]
+[ext_resource type="Shader" uid="uid://nolmhfu3qafp" path="res://rockShader.gdshader" id="3_6ujkb"]
+[ext_resource type="Texture2D" uid="uid://b3o05d3jkt18m" path="res://Sprites/TexNoise.tres" id="4_lh4a8"]
+[ext_resource type="Texture2D" uid="uid://d1tew8spkb28j" path="res://Sprites/TexRock2.png" id="5_tm8xu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2dvr"]
+resource_local_to_scene = true
+shader = ExtResource("3_6ujkb")
+shader_parameter/colA = Vector4(0.385, 0, 0, 0)
+shader_parameter/colB = Vector4(0, 0, 0, 0)
+shader_parameter/noise = ExtResource("4_lh4a8")
+shader_parameter/noiseOffset = Vector2(1.02, 0.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_be8jq"]
+size = Vector2(9.11447, 14.307232)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ujkb"]
+size = Vector2(9, 13.000002)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tm8xu"]
+size = Vector2(8.26936, 9.500002)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lh4a8"]
+size = Vector2(4.3228326, 9.500002)
+
+[node name="Rock2" type="RigidBody2D" node_paths=PackedStringArray("shaker", "main")]
+z_index = 10
+collision_layer = 2
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_tm8xu")
+rockColors = Array[Color]([Color(0.2627451, 0.69411767, 0.76862746, 1), Color(0.10880001, 0.5603201, 0.64, 1), Color(0.4136, 0.9312268, 0.94, 1)])
+shaker = NodePath("Shaker")
+main = NodePath("Shaker/Main")
+
+[node name="Shaker" type="Node2D" parent="."]
+script = ExtResource("2_be8jq")
+duration = 0.4
+easeM = 3
+metadata/_custom_type_script = "uid://3uow3ihp353v"
+
+[node name="Main" type="Sprite2D" parent="Shaker"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_i2dvr")
+scale = Vector2(0.8876865, 0.8876865)
+texture = ExtResource("5_tm8xu")
+
+[node name="Bg" type="Sprite2D" parent="Shaker"]
+modulate = Color(0.18039216, 0.015686275, 0.07058824, 1)
+z_index = -1
+texture_filter = 1
+position = Vector2(-4.7683716e-07, 0.18750028)
+scale = Vector2(1.04, 1.2475001)
+texture = ExtResource("5_tm8xu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12.110497, -0.26582438)
+rotation = -1.1768521
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_be8jq")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-9.5, -3.4999995)
+rotation = -1.5707964
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_6ujkb")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(2, -0.7500001)
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_tm8xu")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(-5.759884, 0.84238267)
+rotation = -1.3662738
+scale = Vector2(0.9999997, 0.9999997)
+shape = SubResource("RectangleShape2D_lh4a8")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+position = Vector2(-1.9999999, -1.9999996)
+rotation = 0.016467452
+scale = Vector2(0.99999964, 0.99999964)
+shape = SubResource("RectangleShape2D_lh4a8")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="."]
+position = Vector2(5, 3.0000005)
+rotation = 1.2512522
+scale = Vector2(0.99999964, 0.99999964)
+shape = SubResource("RectangleShape2D_lh4a8")

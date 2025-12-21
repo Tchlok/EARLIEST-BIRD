@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://8oxlx8i8a1xr"]
+
+[ext_resource type="Script" uid="uid://cef3636db3pia" path="res://Scripts/Rock.gd" id="1_oesn2"]
+[ext_resource type="Script" uid="uid://3uow3ihp353v" path="res://Library/VisualEffects/Shaker.gd" id="2_x6jvc"]
+[ext_resource type="Shader" uid="uid://nolmhfu3qafp" path="res://rockShader.gdshader" id="3_dbbup"]
+[ext_resource type="Texture2D" uid="uid://b3o05d3jkt18m" path="res://Sprites/TexNoise.tres" id="4_vcs1n"]
+[ext_resource type="Texture2D" uid="uid://bwyrg4frfobw1" path="res://Sprites/TexRock4.png" id="5_oesn2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2dvr"]
+resource_local_to_scene = true
+shader = ExtResource("3_dbbup")
+shader_parameter/colA = Vector4(0.385, 0, 0, 0)
+shader_parameter/colB = Vector4(0, 0, 0, 0)
+shader_parameter/noise = ExtResource("4_vcs1n")
+shader_parameter/noiseOffset = Vector2(1.02, 0.875)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oesn2"]
+radius = 8.062258
+
+[node name="Rock4" type="RigidBody2D" node_paths=PackedStringArray("shaker", "main")]
+z_index = 10
+collision_layer = 2
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_oesn2")
+rockColors = Array[Color]([Color(0.2627451, 0.69411767, 0.76862746, 1), Color(0.10880001, 0.5603201, 0.64, 1), Color(0.4136, 0.9312268, 0.94, 1)])
+shaker = NodePath("Shaker")
+main = NodePath("Shaker/Main")
+
+[node name="Shaker" type="Node2D" parent="."]
+script = ExtResource("2_x6jvc")
+duration = 0.4
+easeM = 3
+metadata/_custom_type_script = "uid://3uow3ihp353v"
+
+[node name="Main" type="Sprite2D" parent="Shaker"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_i2dvr")
+scale = Vector2(0.8876865, 0.8876865)
+texture = ExtResource("5_oesn2")
+
+[node name="Bg" type="Sprite2D" parent="Shaker"]
+modulate = Color(0.18039216, 0.015686275, 0.07058824, 1)
+z_index = -1
+texture_filter = 1
+position = Vector2(0.5000004, 9.536743e-07)
+scale = Vector2(1.0600001, 1.1199999)
+texture = ExtResource("5_oesn2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_oesn2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_oesn2")

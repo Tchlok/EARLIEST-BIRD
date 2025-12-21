@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://cg8s0ydk23buq"]
+
+[ext_resource type="PackedScene" uid="uid://dx7jogs4fbngu" path="res://Scenes/Rock1.tscn" id="1_blo30"]
+[ext_resource type="PackedScene" uid="uid://cmh0we44f2iyr" path="res://Scenes/Rock2.tscn" id="2_2xlds"]
+[ext_resource type="PackedScene" uid="uid://bc347np3rjumj" path="res://Scenes/Flower.tscn" id="2_r8eyc"]
+[ext_resource type="PackedScene" uid="uid://8oxlx8i8a1xr" path="res://Scenes/Rock4.tscn" id="4_2xlds"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xfvwf"]
+vertices = PackedVector2Array(69.63281, 35.273438, 288.09375, -9.9765625, 290.89844, 144.04688, 16.9375, 58.140625, 65.39844, 36.960938, -255.04688, 149.9375, -0.546875, 57, -7.328125, 41.90625, -256.9297, -8.0078125, -50.382813, 30.398438, 75.859375, 30, 75.74219, 16.960938, -34.476563, 19.109375, -37.851563, 7.34375, -15.2734375, 21.632813, -2.171875, 8.7734375, -41.023438, 27.28125, 42.992188, 31.617188, 14.40625, 33.210938, 11.15625, 32.46875, 8.6484375, 26.882813, 7.4609375, 23.023438, 46.273438, 18.601563, -59.9375, 25.617188, -63.476563, 16.773438, -58.726563, 7.2734375, 61.671875, 8.9296875, -49.15625, 2.4921875, 54.640625, 9.7265625, 53.578125, 38.703125)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(3, 2, 5, 6), PackedInt32Array(7, 6, 5, 8, 9), PackedInt32Array(1, 10, 11), PackedInt32Array(12, 13, 14, 7), PackedInt32Array(15, 14, 13), PackedInt32Array(16, 12, 7), PackedInt32Array(17, 18, 19, 20, 21, 22), PackedInt32Array(9, 16, 7), PackedInt32Array(23, 9, 8), PackedInt32Array(24, 23, 8), PackedInt32Array(25, 24, 8), PackedInt32Array(1, 11, 26), PackedInt32Array(27, 25, 8), PackedInt32Array(27, 8, 1), PackedInt32Array(27, 1, 26), PackedInt32Array(13, 27, 26, 28, 15), PackedInt32Array(15, 28, 22, 21), PackedInt32Array(3, 18, 17, 29), PackedInt32Array(0, 10, 1), PackedInt32Array(3, 29, 4)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-262, -13, 293, -15, 296, 149, -260, 155)])
+agent_radius = 5.0
+
+[node name="Layout" type="Node2D"]
+
+[node name="Rock" parent="." instance=ExtResource("1_blo30")]
+position = Vector2(58.999992, 25.000002)
+rotation = -0.68059015
+
+[node name="Rock2" parent="." instance=ExtResource("2_2xlds")]
+position = Vector2(9.536743e-07, 35.000004)
+rotation = 0.91057986
+
+[node name="Rock4" parent="." instance=ExtResource("4_2xlds")]
+position = Vector2(-51, 13)
+
+[node name="Flower" parent="." instance=ExtResource("2_r8eyc")]
+position = Vector2(-39, -12)
+
+[node name="Flower2" parent="." instance=ExtResource("2_r8eyc")]
+position = Vector2(-62, -12)
+
+[node name="Flower3" parent="." instance=ExtResource("2_r8eyc")]
+position = Vector2(-81, -12)
+
+[node name="Flower4" parent="." instance=ExtResource("2_r8eyc")]
+position = Vector2(77, -12)
+
+[node name="Flower5" parent="." instance=ExtResource("2_r8eyc")]
+position = Vector2(50, -11)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_xfvwf")
+
+[node name="Polygon2D" type="Polygon2D" parent="NavigationRegion2D"]
+position = Vector2(58, -6)
+rotation = -0.7033954
+polygon = PackedVector2Array(-14, 15, -23, 16, -30, 21, -28, 28, -20, 33, -17, 34, -12, 34, -7, 28, -11, 17)
+
+[node name="Polygon2D2" type="Polygon2D" parent="NavigationRegion2D"]
+position = Vector2(0, -13)
+polygon = PackedVector2Array(-42, 24, -49, 21, -55, 24, -58, 30, -56, 35, -50, 38, -44, 36, -40, 31)
+
+[node name="Polygon2D3" type="Polygon2D" parent="NavigationRegion2D"]
+position = Vector2(23, -1)
+rotation = 0.6848331
+polygon = PackedVector2Array(25, 49, 14, 38, 12, 39, 4, 35, 1, 33, -9, 30, -10, 39, 6, 48, 18, 54)
+
+[node name="TestBounds" type="ColorRect" parent="."]
+visible = false
+offset_left = -86.0
+offset_top = -3.0
+offset_right = 86.0
+offset_bottom = 70.0
+color = Color(1, 1, 1, 0.53333336)

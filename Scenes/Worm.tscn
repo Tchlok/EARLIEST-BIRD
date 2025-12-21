@@ -7,11 +7,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ksekx"]
 size = Vector2(15, 15)
 
-[node name="Worm" type="RigidBody2D"]
+[node name="Worm" type="RigidBody2D" node_paths=PackedStringArray("nav")]
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_3cux1")
 segmentsPacked = ExtResource("2_qg2nh")
+nav = NodePath("NavigationAgent2D")
+targetRerollCd = 0.2
+targetRerollChance = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.18116622, 0.18116622)
@@ -22,3 +25,7 @@ visible = false
 z_index = 4096
 scale = Vector2(0.023204716, 0.023204716)
 texture = ExtResource("1_ksekx")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 1.0
+target_desired_distance = 1.0

@@ -1,26 +1,31 @@
-[gd_scene load_steps=35 format=3 uid="uid://c121otvs8mc36"]
+[gd_scene load_steps=44 format=3 uid="uid://c121otvs8mc36"]
 
 [ext_resource type="Script" uid="uid://bunanie3bc4lx" path="res://Scripts/WormSpawner.gd" id="1_7jktm"]
 [ext_resource type="Script" uid="uid://cd35pr3103syc" path="res://Scripts/Player.gd" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://esr6dkkof3rm" path="res://Scenes/Layouts/layout1.tscn" id="3_36jdj"]
 [ext_resource type="PackedScene" uid="uid://bot6lcym6nola" path="res://Scenes/Worm.tscn" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://dtap3n707vgxh" path="res://Scenes/beakSlash.tscn" id="4_36jdj"]
+[ext_resource type="PackedScene" uid="uid://c1qe0bibybaa5" path="res://Scenes/Layouts/layout2.tscn" id="5_7knny"]
 [ext_resource type="Script" uid="uid://dspv204clf7u6" path="res://Scripts/Foreground.gd" id="5_j5wjh"]
 [ext_resource type="Texture2D" uid="uid://c6xfvt50y3q70" path="res://Sprites/TexBirdBody.png" id="5_lc2xo"]
 [ext_resource type="Texture2D" uid="uid://dkmqlqb7mrv35" path="res://Sprites/TexGround.png" id="5_ryrav"]
 [ext_resource type="Texture2D" uid="uid://bo7lxk472ptue" path="res://Sprites/TexFern.png" id="5_vef74"]
+[ext_resource type="PackedScene" uid="uid://cwonr3wdo0ioj" path="res://Scenes/Layouts/layout3.tscn" id="6_082n1"]
 [ext_resource type="Texture2D" uid="uid://bom3kmovcxrdu" path="res://Sprites/TexBirdBodyCharge.png" id="6_215e1"]
 [ext_resource type="Texture2D" uid="uid://biw2vh6o4are2" path="res://Sprites/TexGrass.png" id="6_eow3j"]
 [ext_resource type="Texture2D" uid="uid://cnk0igv37vfe6" path="res://Sprites/TexTrees.png" id="6_hve3p"]
 [ext_resource type="Script" uid="uid://d32ri4dl0odrr" path="res://Library/VisualEffects/SquashAnchor.gd" id="7_7sc4i"]
 [ext_resource type="Texture2D" uid="uid://drd6v8airlyug" path="res://Sprites/TexBirdBodyPecking.png" id="7_80cx4"]
+[ext_resource type="Script" uid="uid://bu5tgdp7y3r3i" path="res://Scripts/Cam.gd" id="7_aa0lp"]
 [ext_resource type="Texture2D" uid="uid://cekoy45tjfx1f" path="res://Sprites/TexBg.png" id="7_mfdv2"]
 [ext_resource type="Texture2D" uid="uid://bdnbmcqa535d4" path="res://Sprites/TexBirdBodyStunned.png" id="8_e8heu"]
 [ext_resource type="Texture2D" uid="uid://b4pxid5monhit" path="res://Sprites/TexBirdEyeCharging.png" id="10_boyg6"]
+[ext_resource type="Theme" uid="uid://canm7mytbs1mr" path="res://main.tres" id="10_iu0sx"]
 [ext_resource type="Texture2D" uid="uid://c0dk2s0np875h" path="res://Sprites/TexBirdEyeWalking.png" id="10_rvswv"]
 [ext_resource type="Texture2D" uid="uid://qxxsr71nr3uw" path="res://Sprites/TexBirdEyePecking.png" id="11_e36ub"]
-[ext_resource type="PackedScene" uid="uid://dx7jogs4fbngu" path="res://Scenes/Rock1.tscn" id="11_mfdv2"]
+[ext_resource type="Script" uid="uid://dlrs1fjcq3g0r" path="res://Scripts/ScoreDisplay.gd" id="12_4v2jo"]
 [ext_resource type="Texture2D" uid="uid://cfex1en6e41rn" path="res://Sprites/TexBirdEyeStunned.png" id="12_hb5m1"]
-[ext_resource type="PackedScene" uid="uid://bc347np3rjumj" path="res://Scenes/Flower.tscn" id="12_iotsf"]
+[ext_resource type="Script" uid="uid://b6flmfmxwojii" path="res://Scripts/TimeBar.gd" id="13_l1i01"]
 [ext_resource type="Texture2D" uid="uid://wdxagtbkkv17" path="res://Sprites/TexBirdBeakWalking.png" id="13_vaj68"]
 [ext_resource type="Texture2D" uid="uid://buvs5oubcwh5q" path="res://Sprites/TexBirdBeakCharging.png" id="14_5b14r"]
 [ext_resource type="Texture2D" uid="uid://c836eifvj35bk" path="res://Sprites/TexBirdBeakStunned.png" id="14_i2p71"]
@@ -31,6 +36,10 @@
 [ext_resource type="Shader" uid="uid://vul7ydruenv3" path="res://xFade.gdshader" id="19_bnpwn"]
 [ext_resource type="Texture2D" uid="uid://bnt7y6nh68edo" path="res://Sprites/TexBeakIndicator.png" id="20_bnpwn"]
 [ext_resource type="Texture2D" uid="uid://bfs8t2aww1fhu" path="res://Sprites/TexBeakIndicatorOutlinet.png" id="22_xfvwf"]
+[ext_resource type="PackedScene" uid="uid://cg8s0ydk23buq" path="res://Scenes/Layouts/layout0.tscn" id="30_36jdj"]
+[ext_resource type="Script" uid="uid://bf3by36xosabn" path="res://Scripts/Game.gd" id="34_082n1"]
+[ext_resource type="Script" uid="uid://dl4d611plxmls" path="res://Scripts/RampageDisplay.gd" id="35_xex6t"]
+[ext_resource type="Script" uid="uid://br72myex5iuj7" path="res://Scripts/Hitstop.gd" id="40_r62pu"]
 
 [sub_resource type="Curve" id="Curve_e8heu"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.25889325, 0), 0.0, 0.0, 0, 0, Vector2(0.40711457, 0.4160037), 0.0, 0.0, 0, 0, Vector2(0.5652174, 0), 0.0, 0.0, 0, 0, Vector2(0.65019757, 0.2304632), 0.0, 0.0, 0, 0, Vector2(0.7549407, 0), 0.0, 0.0, 0, 0, Vector2(0.8379446, 0.09054744), 0.0, 0.0, 0, 0, Vector2(0.91304344, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -47,13 +56,123 @@ shader = ExtResource("19_bnpwn")
 [node name="WormSpawner" type="Node2D" parent="."]
 script = ExtResource("1_7jktm")
 wormPacked = ExtResource("3_feb5d")
-maxWormCount = 1
-spawnSideOffsetX = 30.0
-spawnSideOffsetRangeY = Vector2(0, 40)
+maxWormCount = 10
+spawnSideOffsetX = 90.0
+spawnSideOffsetRangeY = Vector2(0, 60)
+spawnBottomChance = 0.25
+spawnBottomOffset = 70.0
+spawnCd = 0.2
+layouts = Array[PackedScene]([ExtResource("30_36jdj"), ExtResource("3_36jdj"), ExtResource("5_7knny"), ExtResource("6_082n1")])
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="CamShaker" type="Node2D" parent="."]
+script = ExtResource("16_f1jbl")
+duration = 0.15
+metadata/_custom_type_script = "uid://3uow3ihp353v"
 
-[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("peckDepthIndicator", "fernLeft", "fernRight", "squash", "squashSecondary", "beakPoint", "bodySp", "eyeSp", "beakSp", "feetSp", "anchor")]
+[node name="Camera2D" type="Camera2D" parent="CamShaker" node_paths=PackedStringArray("shaker")]
+script = ExtResource("7_aa0lp")
+shaker = NodePath("..")
+maxOffset = 4.0
+offsetPerKill = 1.0
+timeToReset = 0.6
+resetSpeed = 20.0
+
+[node name="UI" type="Node2D" parent="CamShaker/Camera2D"]
+z_index = 1000
+
+[node name="Node2D" type="Node2D" parent="CamShaker/Camera2D/UI"]
+modulate = Color(1, 1, 1, 0.5647059)
+
+[node name="RampageDisplay" type="Node2D" parent="CamShaker/Camera2D/UI/Node2D" node_paths=PackedStringArray("label", "shaker", "squash")]
+position = Vector2(69, 53)
+script = ExtResource("35_xex6t")
+label = NodePath("SquashAnchor/Shaker/RichTextLabel")
+shaker = NodePath("SquashAnchor/Shaker")
+squash = NodePath("SquashAnchor")
+
+[node name="SquashAnchor" type="Node2D" parent="CamShaker/Camera2D/UI/Node2D/RampageDisplay"]
+position = Vector2(1, 9)
+script = ExtResource("7_7sc4i")
+duration = 0.15
+metadata/_custom_type_script = "uid://d32ri4dl0odrr"
+
+[node name="Shaker" type="Node2D" parent="CamShaker/Camera2D/UI/Node2D/RampageDisplay/SquashAnchor"]
+script = ExtResource("16_f1jbl")
+easeM = 1
+metadata/_custom_type_script = "uid://3uow3ihp353v"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CamShaker/Camera2D/UI/Node2D/RampageDisplay/SquashAnchor/Shaker"]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 18.0
+offset_bottom = 4.0
+theme = ExtResource("10_iu0sx")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "100"
+
+[node name="ScoreDisplay" type="Node2D" parent="CamShaker/Camera2D/UI/Node2D" node_paths=PackedStringArray("label", "shaker", "squash")]
+position = Vector2(-71, 53)
+script = ExtResource("12_4v2jo")
+label = NodePath("SquashAnchor/Shaker/RichTextLabel")
+shaker = NodePath("SquashAnchor/Shaker")
+squash = NodePath("SquashAnchor")
+
+[node name="SquashAnchor" type="Node2D" parent="CamShaker/Camera2D/UI/Node2D/ScoreDisplay"]
+position = Vector2(1, 9)
+script = ExtResource("7_7sc4i")
+duration = 0.15
+metadata/_custom_type_script = "uid://d32ri4dl0odrr"
+
+[node name="Shaker" type="Node2D" parent="CamShaker/Camera2D/UI/Node2D/ScoreDisplay/SquashAnchor"]
+script = ExtResource("16_f1jbl")
+easeM = 1
+metadata/_custom_type_script = "uid://3uow3ihp353v"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CamShaker/Camera2D/UI/Node2D/ScoreDisplay/SquashAnchor/Shaker"]
+offset_left = -14.0
+offset_top = -16.0
+offset_right = 10.0
+offset_bottom = 1.0
+theme = ExtResource("10_iu0sx")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "000"
+
+[node name="TimeBar" type="Node2D" parent="CamShaker/Camera2D/UI/Node2D" node_paths=PackedStringArray("lineMain", "lineBg", "lineOutline", "game")]
+position = Vector2(0, 58)
+script = ExtResource("13_l1i01")
+lineMain = NodePath("LineFill")
+lineBg = NodePath("LineBg")
+lineOutline = NodePath("LineOutline")
+outlineLineWidthExtra = 2.0
+outlineWidthExtra = 2.0
+game = NodePath("../../../../../game")
+lineWidth = 5.0
+width = 100.0
+colStart = Color(0.5803922, 0.83137256, 0.8745098, 1)
+colEnd = Color(0, 0.9098039, 0.91764706, 1)
+colBg = Color(0.25882354, 0.45882353, 0.49411765, 1)
+colOutline = Color(0.72156864, 0.078431375, 0.3137255, 1)
+
+[node name="LineFill" type="Line2D" parent="CamShaker/Camera2D/UI/Node2D/TimeBar"]
+z_index = 2
+points = PackedVector2Array(0, 0, 0, 0)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LineBg" type="Line2D" parent="CamShaker/Camera2D/UI/Node2D/TimeBar"]
+z_index = 1
+points = PackedVector2Array(0, 0, 0, 0)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LineOutline" type="Line2D" parent="CamShaker/Camera2D/UI/Node2D/TimeBar"]
+points = PackedVector2Array(0, 0, 0, 0)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("peckDepthIndicator", "fernLeft", "fernRight", "squash", "squashSecondary", "beakPoint", "bodySp", "eyeSp", "beakSp", "feetSp", "anchor", "cam", "rampageDisplay")]
 position = Vector2(0, -10)
 script = ExtResource("1_e2o6t")
 peckDepthIndicator = NodePath("BeakDepthIndicator")
@@ -62,7 +181,7 @@ peckDepthIndicatorFadeIn = 10.0
 peckDepthIndicatorFadeOut = 20.0
 beakSlashPacked = ExtResource("4_36jdj")
 walkingSpeed = 60.0
-chargingSpeed = 30.0
+chargingSpeedMod = 0.5
 chargingDuration = 1.0
 chargingSlowdownEase = 1
 walkingAccelerationDuration = 1.0
@@ -71,7 +190,7 @@ flipBoundary = 75.0
 fernLeft = NodePath("../Background/FernMod/FernLeft")
 fernRight = NodePath("../Background/FernMod/FernRight")
 peckDepthBase = 20.0
-peckDepthScale = 45.0
+peckDepthScale = 60.0
 peckDuration = 0.15
 peckCheckWidth = 5
 hopSinMagMod = 0.05
@@ -104,6 +223,12 @@ colorNormal = Color(0.5803922, 0.83137256, 0.8745098, 1)
 colorCharged = Color(0, 1, 1, 1)
 accentColorSpeed = 10.0
 anchor = NodePath("SquashAnchor/SquashAnchorSecondary/NormalState")
+cam = NodePath("../CamShaker/Camera2D")
+rampagePerKill = 0.03
+rampageStunLoss = 1.0
+rampageSpeedMod = 2.0
+rampageChargeMod = 2.0
+rampageDisplay = NodePath("../CamShaker/Camera2D/UI/Node2D/RampageDisplay")
 
 [node name="SquashAnchor" type="Node2D" parent="Player"]
 script = ExtResource("7_7sc4i")
@@ -297,37 +422,24 @@ color = Color(1, 0.22745098, 0.23529412, 1)
 [node name="TexGround" type="Sprite2D" parent="Foreground"]
 modulate = Color(0.5591012, 0.079499386, 0.3285979, 1)
 texture_filter = 1
-position = Vector2(0, 30)
+position = Vector2(0, 31)
+scale = Vector2(1, 1.025)
 texture = ExtResource("5_ryrav")
 
 [node name="TexGrass" type="Sprite2D" parent="Foreground"]
-z_index = 5
+z_index = 235
 texture_filter = 1
 position = Vector2(0, -10)
 texture = ExtResource("6_eow3j")
 
-[node name="Rock" parent="." instance=ExtResource("11_mfdv2")]
-position = Vector2(-18, 24)
+[node name="game" type="Node2D" parent="." node_paths=PackedStringArray("player", "spawner", "uiHolder")]
+script = ExtResource("34_082n1")
+player = NodePath("../Player")
+spawner = NodePath("../WormSpawner")
+gameDuration = 60.0
+timeToStart = 2.0
+uiHolder = NodePath("../CamShaker/Camera2D/UI")
+targetOpacitySpeed = 5.0
 
-[node name="Rock2" parent="." instance=ExtResource("11_mfdv2")]
-position = Vector2(41, 27)
-rotation = 1.1888157
-
-[node name="Rock3" parent="." instance=ExtResource("11_mfdv2")]
-position = Vector2(-56.000008, 44.000004)
-rotation = 0.2617994
-
-[node name="Flower" parent="." instance=ExtResource("12_iotsf")]
-position = Vector2(-39, -12)
-
-[node name="Flower2" parent="." instance=ExtResource("12_iotsf")]
-position = Vector2(-62, -12)
-
-[node name="Flower3" parent="." instance=ExtResource("12_iotsf")]
-position = Vector2(-81, -12)
-
-[node name="Flower4" parent="." instance=ExtResource("12_iotsf")]
-position = Vector2(77, -12)
-
-[node name="Flower5" parent="." instance=ExtResource("12_iotsf")]
-position = Vector2(50, -11)
+[node name="hitstop" type="Node2D" parent="."]
+script = ExtResource("40_r62pu")

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://canm7mytbs1mr"]
+
+[resource]
+RichTextLabel/colors/default_color = Color(0.5803922, 0.83137256, 0.8745098, 1)
+RichTextLabel/colors/font_outline_color = Color(0.72156864, 0.078431375, 0.3137255, 1)
+RichTextLabel/constants/outline_size = 8
+RichTextLabel/constants/shadow_outline_size = 0

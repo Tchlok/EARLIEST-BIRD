@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1qe0bibybaa5"]
+
+[ext_resource type="PackedScene" uid="uid://bc347np3rjumj" path="res://Scenes/Flower.tscn" id="1_qjd27"]
+[ext_resource type="PackedScene" uid="uid://d32276mps70jy" path="res://Scenes/Rock3.tscn" id="2_1ud16"]
+[ext_resource type="PackedScene" uid="uid://dx7jogs4fbngu" path="res://Scenes/Rock1.tscn" id="2_bqced"]
+[ext_resource type="PackedScene" uid="uid://8oxlx8i8a1xr" path="res://Scenes/Rock4.tscn" id="3_hxykv"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xfvwf"]
+vertices = PackedVector2Array(-31.742188, 38.570313, -19.171875, 21.046875, -15.46875, 44.78125, -33.390625, 50.0625, -26.851563, 20.140625, -38.601563, 30, -42.570313, 18.570313, 17.828125, 41.882813, 46.507813, 35.203125, 288.09375, -9.9765625, 290.89844, 144.04688, 4.8984375, 51.570313, -255.04688, 149.9375, -41.851563, 55.140625, -16.742188, 3.5703125, -23.601563, -5, 54.851563, 7, 43.820313, 7, -256.9297, -8.0078125, -33.328125, -5, -44.296875, 1.2734375, -59.296875, 36.273438, 67.84375, 18.132813, 36.039063, 10.890625, 29.789063, 17.140625, -18.390625, 15.0625, 10.578125, 18.703125, 31.429688, 33.523438, -48.328125, 30, -57.570313, 53.570313)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 1, 0, 5, 6), PackedInt32Array(7, 8, 9, 10, 11), PackedInt32Array(11, 10, 12), PackedInt32Array(2, 11, 12, 13), PackedInt32Array(14, 15, 9, 16, 17), PackedInt32Array(18, 9, 15, 19), PackedInt32Array(18, 19, 20), PackedInt32Array(12, 18, 20, 6, 21), PackedInt32Array(9, 22, 16), PackedInt32Array(14, 17, 23), PackedInt32Array(14, 23, 24, 25), PackedInt32Array(4, 25, 24, 26, 1), PackedInt32Array(8, 22, 9), PackedInt32Array(27, 8, 7), PackedInt32Array(27, 7, 26, 24), PackedInt32Array(6, 5, 28), PackedInt32Array(6, 28, 21), PackedInt32Array(12, 21, 29), PackedInt32Array(12, 29, 13), PackedInt32Array(2, 13, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-262, -13, 293, -15, 296, 149, -260, 155)])
+agent_radius = 5.0
+
+[node name="Layout2" type="Node2D"]
+
+[node name="Flower" parent="." instance=ExtResource("1_qjd27")]
+position = Vector2(-39, -12)
+
+[node name="Flower2" parent="." instance=ExtResource("1_qjd27")]
+position = Vector2(54, -12)
+startOffset = Vector2(3, -25)
+
+[node name="Flower3" parent="." instance=ExtResource("1_qjd27")]
+position = Vector2(-81, -12)
+
+[node name="Flower4" parent="." instance=ExtResource("1_qjd27")]
+position = Vector2(77, -12)
+startOffset = Vector2(-4, -20)
+
+[node name="Flower5" parent="." instance=ExtResource("1_qjd27")]
+position = Vector2(23, -11)
+startOffset = Vector2(2, -10)
+
+[node name="Flower6" parent="." instance=ExtResource("1_qjd27")]
+position = Vector2(-13, -12)
+startOffset = Vector2(-3, -12)
+
+[node name="Rock" parent="." instance=ExtResource("2_bqced")]
+position = Vector2(1, 39)
+rotation = 0.21542697
+
+[node name="Rock4" parent="." instance=ExtResource("3_hxykv")]
+position = Vector2(-46, 42)
+
+[node name="Rock5" parent="." instance=ExtResource("3_hxykv")]
+position = Vector2(-31, 5.999998)
+rotation = 0.45740807
+
+[node name="Rock3" parent="." instance=ExtResource("2_1ud16")]
+position = Vector2(47, 19)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_xfvwf")
+
+[node name="Polygon2D" type="Polygon2D" parent="NavigationRegion2D"]
+position = Vector2(-5, 1.0000002)
+rotation = -0.76940393
+polygon = PackedVector2Array(-23.149967, 11.835498, -32.13824, 24.558777, -24.841896, 38.586014, -14.921047, 39.841717, -7.3813605, 24.869974)
+
+[node name="Polygon2D2" type="Polygon2D" parent="NavigationRegion2D"]
+position = Vector2(-50, 12.999999)
+rotation = -0.76940393
+polygon = PackedVector2Array(-20.961689, 15.893635, -27.200436, 23.772594, -20.712887, 31.447994, -15.034138, 32.771553, -9.445866, 28.438982, -8.84063, 22.064526, -13.150585, 17.890282)
+
+[node name="Polygon2D4" type="Polygon2D" parent="NavigationRegion2D"]
+position = Vector2(-35, -22)
+rotation = -0.76940393
+polygon = PackedVector2Array(-20.961689, 15.893635, -27.200436, 23.772594, -20.712887, 31.447994, -15.034138, 32.771553, -9.445866, 28.438982, -8.84063, 22.064526, -13.150585, 17.890282)
+
+[node name="Polygon2D3" type="Polygon2D" parent="NavigationRegion2D"]
+position = Vector2(39, -6.999999)
+rotation = -0.76940393
+polygon = PackedVector2Array(-20.961689, 15.893635, -27.200436, 23.772594, -21.431213, 30.752287, -2.3078442, 32.567986, -3.1618786, 23.388083, -8.9084835, 17.822424, -15.305557, 15.80316)
+
+[node name="TestBounds" type="ColorRect" parent="."]
+visible = false
+offset_left = -86.0
+offset_top = -3.0
+offset_right = 86.0
+offset_bottom = 70.0
+color = Color(1, 1, 1, 0.53333336)

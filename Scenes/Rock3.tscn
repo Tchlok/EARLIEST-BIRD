@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://d32276mps70jy"]
+
+[ext_resource type="Script" uid="uid://cef3636db3pia" path="res://Scripts/Rock.gd" id="1_hwn22"]
+[ext_resource type="Script" uid="uid://3uow3ihp353v" path="res://Library/VisualEffects/Shaker.gd" id="2_o7jal"]
+[ext_resource type="Shader" uid="uid://nolmhfu3qafp" path="res://rockShader.gdshader" id="3_da2pg"]
+[ext_resource type="Texture2D" uid="uid://b3o05d3jkt18m" path="res://Sprites/TexNoise.tres" id="4_ttpaf"]
+[ext_resource type="Texture2D" uid="uid://bf25en5ni2pis" path="res://Sprites/TexRock3.png" id="5_hwn22"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2dvr"]
+resource_local_to_scene = true
+shader = ExtResource("3_da2pg")
+shader_parameter/colA = Vector4(0.385, 0, 0, 0)
+shader_parameter/colB = Vector4(0, 0, 0, 0)
+shader_parameter/noise = ExtResource("4_ttpaf")
+shader_parameter/noiseOffset = Vector2(1.02, 0.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7jal"]
+size = Vector2(9.277424, 13.112848)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_da2pg"]
+size = Vector2(9.11447, 11.576808)
+
+[node name="Rock3" type="RigidBody2D" node_paths=PackedStringArray("shaker", "main")]
+z_index = 10
+collision_layer = 2
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_hwn22")
+rockColors = Array[Color]([Color(0.2627451, 0.69411767, 0.76862746, 1), Color(0.10880001, 0.5603201, 0.64, 1), Color(0.4136, 0.9312268, 0.94, 1)])
+shaker = NodePath("Shaker")
+main = NodePath("Shaker/Main")
+
+[node name="Shaker" type="Node2D" parent="."]
+script = ExtResource("2_o7jal")
+duration = 0.4
+easeM = 3
+metadata/_custom_type_script = "uid://3uow3ihp353v"
+
+[node name="Main" type="Sprite2D" parent="Shaker"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_i2dvr")
+scale = Vector2(0.8876865, 0.8876865)
+texture = ExtResource("5_hwn22")
+
+[node name="Bg" type="Sprite2D" parent="Shaker"]
+modulate = Color(0.18039216, 0.015686275, 0.07058824, 1)
+z_index = -1
+texture_filter = 1
+position = Vector2(-4.7683716e-07, 9.536743e-07)
+scale = Vector2(1.04, 1.1199999)
+texture = ExtResource("5_hwn22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5.0406094, 0.07351778)
+rotation = -2.3206077
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_o7jal")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+rotation = -1.7226143
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_o7jal")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 3)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_o7jal")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 5)
+rotation = -2.1199665
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_da2pg")

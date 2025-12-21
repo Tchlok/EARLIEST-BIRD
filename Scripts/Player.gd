@@ -10,7 +10,7 @@ var peckDepthIndicatorTargetA : float
 @export var beakSlashPacked : PackedScene
 
 @export var walkingSpeed : float
-@export var chargingSpeed : float
+@export var chargingSpeedMod : float
 @export var chargingDuration : float
 @export var chargingSlowdownEase : MathS.EasingMethod
 var chargingStoredPower : float
@@ -82,15 +82,24 @@ var curAccentColorV3 : Vector3
 @export var anchor : Node2D
 var _t : float
 
+@export var cam : Cam
+
+func _ready():
+	curState=PlayerState.Stunned
+	active=false
+	addRampage(0)
+
 func _physics_process(delta: float):
 	curSpeed=0
+	var rMod : float = lerp(1.0,rampageSpeedMod,rampage)
+
 	match curState:
 		PlayerState.Walking:
 			
-			curSpeed=lerp(0.0, walkingSpeed, MathS.Ease(stateT / chargingDuration, walkingAccelerationEase))
+			curSpeed=lerp(0.0, walkingSpeed, MathS.Ease(stateT / chargingDuration, walkingAccelerationEase))*rMod
 		PlayerState.Charging:
-			curSpeed=lerp(walkingSpeed, chargingSpeed, MathS.Ease(stateT / chargingDuration, chargingSlowdownEase))
-			chargingStoredPower=MathS.Clamp01(stateT / chargingDuration)
+			curSpeed=lerp(walkingSpeed, walkingSpeed*chargingSpeedMod, MathS.Ease(stateT / chargingDuration, chargingSlowdownEase))*rMod
+			chargingStoredPower=MathS.Clamp01(stateT / (chargingDuration / lerp(1.0,rampageChargeMod,rampage)))
 			targetAccentColor=colorNormal.lerp(colorCharged,chargingStoredPower)
 			peckDepthIndicatorTargetA=lerp(peckDepthIndicatorIdleA, 1.0,chargingStoredPower)
 		PlayerState.Pecking:
@@ -106,9 +115,16 @@ func _physics_process(delta: float):
 				changeState(PlayerState.Stunned)
 			#worms
 			for w in Score.worms:
-				w.attemptKill(beakPoint.global_position)
-				w.attemptKill(beakPoint.global_position+Vector2.RIGHT*peckCheckWidth)
-				w.attemptKill(beakPoint.global_position+Vector2.LEFT*peckCheckWidth)
+				var success : int = 0
+				success+=w.attemptKill(beakPoint.global_position)
+				success+=w.attemptKill(beakPoint.global_position)
+				success+=w.attemptKill(beakPoint.global_position+Vector2.RIGHT*peckCheckWidth)
+				success+=w.attemptKill(beakPoint.global_position+Vector2.RIGHT*peckCheckWidth)
+				success+=w.attemptKill(beakPoint.global_position+Vector2.LEFT*peckCheckWidth)
+				success+=w.attemptKill(beakPoint.global_position+Vector2.LEFT*peckCheckWidth)
+				for i in range(success):
+					addRampage(rampagePerKill)
+
 			if stateT>=peckDuration:
 				changeState(PlayerState.Walking)
 		PlayerState.Stunned:
@@ -126,17 +142,19 @@ func _physics_process(delta: float):
 	position.x+=direction*curSpeed*delta
 
 func _process(delta: float):
-	match curState:
-		PlayerState.Walking:
-			if Input.is_action_just_pressed("action"):
-				changeState(PlayerState.Charging)
-		PlayerState.Charging:
-			if Input.is_action_just_released("action"):
-				changeState(PlayerState.Pecking)
-		PlayerState.Pecking:
-			pass
-		PlayerState.Stunned:
-			pass
+	
+	if active:
+		match curState:
+			PlayerState.Walking:
+				if Input.is_action_just_pressed("action"):
+					changeState(PlayerState.Charging)
+			PlayerState.Charging:
+				if Input.is_action_just_released("action"):
+					changeState(PlayerState.Pecking)
+			PlayerState.Pecking:
+				pass
+			PlayerState.Stunned:
+				pass
 	
 	_t+=delta
 	var hopAnchorYDelta : float = anchor.position.y
@@ -168,11 +186,6 @@ func _process(delta: float):
 func flipDirection():
 	direction*=-1
 	squashSecondary.TriggerSquash(0.1)
-func stun():
-	if curState==PlayerState.Stunned:
-		return
-	print("Stun")
-	changeState(PlayerState.Stunned)
 
 func changeState(newState:PlayerState):
 	if curState==newState:
@@ -213,3 +226,29 @@ func changeState(newState:PlayerState):
 			eyeSp.texture=stunnedEyeTex
 			beakSp.texture=stunnedBeakTex
 			squash.TriggerStretch(SquashAnchor.Medium)
+			addRampage(-rampageStunLoss)
+			cam.triggerRock()
+
+var active : bool
+func start():
+	active=true
+	changeState(PlayerState.Walking)
+	if Input.is_action_pressed("action"):
+		changeState(PlayerState.Charging)
+func stop():
+	active=false
+	changeState(PlayerState.Walking)
+	walkingSpeed=0
+
+var rampage : float = 0
+@export var rampagePerKill : float
+@export var rampageStunLoss : float
+@export var rampageSpeedMod : float
+@export var rampageChargeMod : float
+@export var rampageDisplay : RampageDisplay
+
+func addRampage(amount : float):
+	var delta = rampage
+	rampage=MathS.Clamp01(rampage+amount)
+	delta=-(delta-rampage)
+	rampageDisplay.update(rampage,delta)
